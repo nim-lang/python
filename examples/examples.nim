@@ -6,7 +6,7 @@ import os, strutils
 
 
 ## Very high level python binding examples
-proc Example1() =
+proc example1() =
   ## Run an interactive Python interpreter in a Nim console application
   let
     applicationName = os.getAppFilename()
@@ -25,7 +25,7 @@ proc Example1() =
   elif returnValue == 2:
     echo("Invalid parameter list passed to the Python interpreter!")
 
-proc Example2() =
+proc example2() =
   ## Executing a python script from a file
   var
     fileName: string = "script_example1.py"
@@ -41,7 +41,7 @@ proc Example2() =
   # Close and delete the Python interpreter
   pyFinalize()
 
-proc Example3() =
+proc example3() =
   ## Executing a python script from a string
   # Setup the string variable with some python code
   var pythonString = "import time\nprint('Today is ', time.ctime(time.time()))"
@@ -53,7 +53,7 @@ proc Example3() =
   # Close and delete the Python interpreter
   pyFinalize()
 
-proc Example4() =
+proc example4() =
   ## Simple example of an Exception in a python script
   # Initialize the Python interpreter
   pyInitialize()
@@ -71,8 +71,8 @@ proc Example4() =
   pyFinalize()
 
 ## Pure Embedding (C example translation)
-##https://docs.python.org/2/extending/embedding.html#pure-embedding
-proc Example5() =
+## https://docs.python.org/2/extending/embedding.html#pure-embedding
+proc example5() =
   ## Import a python module from a file and execute a function from it.
   ## How to run the example: 
   ##   - compile this file
@@ -133,8 +133,8 @@ proc Example5() =
   
 
 ## Run one of the examples
-#Example1()
-#Example2()
-#Example3()
-Example4()
-#Example5()
+#example1()
+#example2()
+#example3()
+example4()
+#example5()
