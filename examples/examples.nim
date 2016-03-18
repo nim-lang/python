@@ -1,7 +1,7 @@
 
 ## Various Python 2 examples
 
-import python2
+import python
 import os, strutils
 
 
@@ -19,7 +19,7 @@ proc example1() =
   for arg in arguments:
     cArgumentList.add(cstring(arg))
   # Run the interpreter by passing it the application arguments
-  returnValue = pyMain(cArgumentList.len, addr(cArgumentList[0]))
+  returnValue = main(cArgumentList.len, addr(cArgumentList[0]))
   if returnValue == 1:
     echo("Exception occured!")
   elif returnValue == 2:
@@ -30,45 +30,45 @@ proc example2() =
   var
     fileName: string = "script_example1.py"
   # Set program name in python (recommended)
-  pySetProgramName("Example 2 ŽĆČŠĐ ŁĄŻĘĆŃŚŹ ЯБГДЖЙ ÄäÜüß")
+  setProgramName("Example 2 ŽĆČŠĐ ŁĄŻĘĆŃŚŹ ЯБГДЖЙ ÄäÜüß")
   # Initialize the Python interpreter
-  pyInitialize()
+  initialize()
   # Execute the script
-  if pyRunAnyFile(fileName) == -1:
+  if runAnyFile(fileName) == -1:
     echo("Exception occured in Python script!")
   # Display program name
-  echo pyGetProgramName()
+  echo getProgramName()
   # Close and delete the Python interpreter
-  pyFinalize()
+  finalize()
 
 proc example3() =
   ## Executing a python script from a string
   # Setup the string variable with some python code
   var pythonString = "import time\nprint('Today is ', time.ctime(time.time()))"
   # Initialize the Python interpreter
-  pyInitialize()
+  initialize()
   # Execute the string script
-  if pyRunSimpleString(pythonString) == -1:
+  if runSimpleString(pythonString) == -1:
     echo("Exception occured in Python script!")
   # Close and delete the Python interpreter
-  pyFinalize()
+  finalize()
 
 proc example4() =
   ## Simple example of an Exception in a python script
   # Initialize the Python interpreter
-  pyInitialize()
+  initialize()
   # Variable Initialization
   var
     pythonString: cstring = "import time\nd=\nprint('Today is ', time.ctime(time.time()))"
-    pyGlobals: PyObjectPtr = pyModuleGetDict(pyImportAddModule("__main__"))
-    pyLocals: PyObjectPtr = pyGlobals
+    globals: PyObjectPtr = moduleGetDict(importAddModule("__main__"))
+    locals: PyObjectPtr = globals
   # Check globals, locals dictionaries and run the python string
-  if pyGlobals == nil or pyLocals == nil:
+  if globals == nil or locals == nil:
     echo("Error creating globals and locals dictionaries")
-  elif pyRunString(pythonString, pyFileInput, pyGlobals, pyLocals) == nil:
+  elif runString(pythonString, fileInput, globals, locals) == nil:
     echo("Exception occured in Python script!")
   # Close and delete the Python interpreter
-  pyFinalize()
+  finalize()
 
 ## Pure Embedding (C example translation)
 ## https://docs.python.org/2/extending/embedding.html#pure-embedding
@@ -90,51 +90,51 @@ proc example5() =
   if len(arguments) < 2:
     quit "Usage: call pythonfile funcname [args]"
   # Initialize the Python interpreter
-  pyInitialize()
+  initialize()
   # Get the app name into a python object
-  pName = pyStringFromString(arguments[0]) # Error checking of pName left out
+  pName = stringFromString(arguments[0]) # Error checking of pName left out
   #echo PyBytes_AsString(PyUnicode_AsASCIIString(pName))
-  pModule = pyImportImport(pName)
-  pyDecref(pName)
+  pModule = importImport(pName)
+  decref(pName)
   # Check if module was loaded
   if pModule != nil:
-    pFunc = pyObjectGetAttrString(pModule, arguments[1]) # pFunc is a new reference
-    if pFunc != nil and pyCallableCheck(pFunc) != 0:
+    pFunc = objectGetAttrString(pModule, arguments[1]) # pFunc is a new reference
+    if pFunc != nil and callableCheck(pFunc) != 0:
       var countStart = argumentCount - 2
-      pArgs = pyTupleNew(countStart)
+      pArgs = tupleNew(countStart)
       for i in 0..(countStart-1):
-        pValue = pyLongFromLong(parseInt(arguments[i + 2]).clong)
+        pValue = longFromLong(parseInt(arguments[i + 2]).clong)
         if pValue == nil:
-          pyDecref(pArgs)
-          pyDecref(pModule)
+          decref(pArgs)
+          decref(pModule)
           quit "Cannot convert argument number: $1" % $i
         # pValue reference stolen here:
-        if pyTupleSetItem(pArgs, i, pValue) != 0:
+        if tupleSetItem(pArgs, i, pValue) != 0:
           quit "Cannot insert tuple item: $1" % $i
-      pValue = pyObjectCallObject(pFunc, pArgs)
-      pyDecref(pArgs)
+      pValue = objectCallObject(pFunc, pArgs)
+      decref(pArgs)
       if pValue != nil:
-        echo "Result of call: $1" % $pyLongAsLong(pValue)
-        pyDecref(pValue)
+        echo "Result of call: $1" % $longAsLong(pValue)
+        decref(pValue)
       else:
-        pyDecref(pFunc)
-        pyDecref(pModule)
-        pyErrPrint()
+        decref(pFunc)
+        decref(pModule)
+        errPrint()
         quit "Call failed!"
     else:
-      if pyErrOccurred() != nil:
-        pyErrPrint()
+      if errOccurred() != nil:
+        errPrint()
       quit "Cannot find function '$1'\n" % arguments[1]
   else:
-    pyErrPrint();
+    errPrint();
     quit "Failed to load '$1'" % arguments[0]
   # Close and delete the Python interpreter
-  pyFinalize()
+  finalize()
   
 
 ## Run one of the examples
-#example1()
+example1()
 #example2()
 #example3()
-example4()
+#example4()
 #example5()

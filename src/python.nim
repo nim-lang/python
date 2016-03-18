@@ -71,9 +71,9 @@ else:
 
   
 const 
-  pytMethodBufferIncrease* = 10
-  pytMemberBufferIncrease* = 10
-  pytGetsetBufferIncrease* = 10
+  tMethodBufferIncrease* = 10
+  tMemberBufferIncrease* = 10
+  tGetsetBufferIncrease* = 10
   # Flag passed to newmethodobject
   methOldargs* = 0x0000
   methVarargs* = 0x0001
@@ -95,9 +95,9 @@ const
   coFutureWithStatement* = 0x8000
   coFuturePrintFunction* = 0x10000
   coFutureUnicodeLiterals* = 0x20000
-{.deprecated: [PYT_METHOD_BUFFER_INCREASE: pytMethodBufferIncrease].}
-{.deprecated: [PYT_MEMBER_BUFFER_INCREASE: pytMemberBufferIncrease].}
-{.deprecated: [PYT_GETSET_BUFFER_INCREASE: pytGetsetBufferIncrease].}
+{.deprecated: [PYT_METHOD_BUFFER_INCREASE: tMethodBufferIncrease].}
+{.deprecated: [PYT_MEMBER_BUFFER_INCREASE: tMemberBufferIncrease].}
+{.deprecated: [PYT_GETSET_BUFFER_INCREASE: tGetsetBufferIncrease].}
 {.deprecated: [METH_OLDARGS: methOldargs].}
 {.deprecated: [METH_VARARGS: methVarargs].}
 {.deprecated: [METH_KEYWORDS: methKeywords].}
@@ -121,59 +121,59 @@ const
 type                          
   # Rich comparison opcodes introduced in version 2.1
   RichComparisonOpcode* = enum 
-    pyLT, pyLE, pyEQ, pyNE, pyGT, pyGE
+    rcoLT, rcoLE, rcoEQ, rcoNE, rcoGT, rcoGE
 
 const
   # PySequenceMethods contains sq_contains
-  pyTpflagsHaveGetCharBuffer* = (1 shl 0)
+  tpflagsHaveGetCharBuffer* = (1 shl 0)
   # Objects which participate in garbage collection (see objimp.h)
-  pyTpflagsHaveSequenceIn* = (1 shl 1)
+  tpflagsHaveSequenceIn* = (1 shl 1)
   # PySequenceMethods and PyNumberMethods contain in-place operators
-  pyTpflagsGc* = (1 shl 2)
+  tpflagsGc* = (1 shl 2)
   # PyNumberMethods do their own Coercion
-  pyTpflagsHaveInplaceops* = (1 shl 3)
-  pyTpflagsCheckTypes* = (1 shl 4)
+  tpflagsHaveInplaceops* = (1 shl 3)
+  tpflagsCheckTypes* = (1 shl 4)
   # Objects which are weakly referencable if their tp_weaklistoffset is > 0
   # XXX Should this have the same value as Py_TPFLAGS_HAVE_RICHCOMPARE?
   # These both indicate a feature that appeared in the same alpha release.
-  pyTpflagsHaveRichCompare* = (1 shl 5)
+  tpflagsHaveRichCompare* = (1 shl 5)
   # tp_iter is defined
-  pyTpflagsHaveWeakRefs* = (1 shl 6)
+  tpflagsHaveWeakRefs* = (1 shl 6)
   # New members introduced by Python 2.2 exist
-  pyTpflagsHaveIter* = (1 shl 7)
+  tpflagsHaveIter* = (1 shl 7)
   # Set if the type object is dynamically allocated
-  pyTpflagsHaveClass* = (1 shl 8)
+  tpflagsHaveClass* = (1 shl 8)
   # Set if the type allows subclassing
-  pyTpflagsHeapType* = (1 shl 9)
+  tpflagsHeapType* = (1 shl 9)
   # Set if the type is 'ready' -- fully initialized
-  pyTpflagsBaseType* = (1 shl 10)
+  tpflagsBaseType* = (1 shl 10)
   # Set while the type is being 'readied', to prevent recursive ready calls
-  pyTpflagsReady* = (1 shl 12)
+  tpflagsReady* = (1 shl 12)
   # Objects support garbage collection (see objimp.h)
-  pyTpflagsReadying* = (1 shl 13)
-  pyTpflagsHaveGc* = (1 shl 14)
-  pyTpflagsDefault* = pyTpflagsHaveGetCharBuffer or
-                      pyTpflagsHaveSequenceIn or
-                      pyTpflagsHaveInplaceops or
-                      pyTpflagsHaveRichCompare or 
-                      pyTpflagsHaveWeakRefs or
-                      pyTpflagsHaveIter or 
-                      pyTpflagsHaveClass
-{.deprecated: [Py_TPFLAGS_HAVE_GETCHARBUFFER: pyTpflagsHaveGetCharBuffer].}
-{.deprecated: [Py_TPFLAGS_HAVE_SEQUENCE_IN: pyTpflagsHaveSequenceIn].}
-{.deprecated: [Py_TPFLAGS_GC: pyTpflagsGc].}
-{.deprecated: [Py_TPFLAGS_HAVE_INPLACEOPS: pyTpflagsHaveInplaceops].}
-{.deprecated: [Py_TPFLAGS_CHECKTYPES: pyTpflagsCheckTypes].}
-{.deprecated: [Py_TPFLAGS_HAVE_RICHCOMPARE: pyTpflagsHaveRichCompare].}
-{.deprecated: [Py_TPFLAGS_HAVE_WEAKREFS: pyTpflagsHaveWeakRefs].}
-{.deprecated: [Py_TPFLAGS_HAVE_ITER: pyTpflagsHaveIter].}
-{.deprecated: [Py_TPFLAGS_HAVE_CLASS: pyTpflagsHaveClass].}
-{.deprecated: [Py_TPFLAGS_HEAPTYPE: pyTpflagsHeapType].}
-{.deprecated: [Py_TPFLAGS_BASETYPE: pyTpflagsBaseType].}
-{.deprecated: [Py_TPFLAGS_READY: pyTpflagsReady].}
-{.deprecated: [Py_TPFLAGS_READYING: pyTpflagsReadying].}
-{.deprecated: [Py_TPFLAGS_HAVE_GC: pyTpflagsHaveGc].}
-{.deprecated: [Py_TPFLAGS_DEFAULT: pyTpflagsDefault].}
+  tpflagsReadying* = (1 shl 13)
+  tpflagsHaveGc* = (1 shl 14)
+  tpflagsDefault* = tpflagsHaveGetCharBuffer or
+                    tpflagsHaveSequenceIn or
+                    tpflagsHaveInplaceops or
+                    tpflagsHaveRichCompare or 
+                    tpflagsHaveWeakRefs or
+                    tpflagsHaveIter or 
+                    tpflagsHaveClass
+{.deprecated: [Py_TPFLAGS_HAVE_GETCHARBUFFER: tpflagsHaveGetCharBuffer].}
+{.deprecated: [Py_TPFLAGS_HAVE_SEQUENCE_IN: tpflagsHaveSequenceIn].}
+{.deprecated: [Py_TPFLAGS_GC: tpflagsGc].}
+{.deprecated: [Py_TPFLAGS_HAVE_INPLACEOPS: tpflagsHaveInplaceops].}
+{.deprecated: [Py_TPFLAGS_CHECKTYPES: tpflagsCheckTypes].}
+{.deprecated: [Py_TPFLAGS_HAVE_RICHCOMPARE: tpflagsHaveRichCompare].}
+{.deprecated: [Py_TPFLAGS_HAVE_WEAKREFS: tpflagsHaveWeakRefs].}
+{.deprecated: [Py_TPFLAGS_HAVE_ITER: tpflagsHaveIter].}
+{.deprecated: [Py_TPFLAGS_HAVE_CLASS: tpflagsHaveClass].}
+{.deprecated: [Py_TPFLAGS_HEAPTYPE: tpflagsHeapType].}
+{.deprecated: [Py_TPFLAGS_BASETYPE: tpflagsBaseType].}
+{.deprecated: [Py_TPFLAGS_READY: tpflagsReady].}
+{.deprecated: [Py_TPFLAGS_READYING: tpflagsReadying].}
+{.deprecated: [Py_TPFLAGS_HAVE_GC: tpflagsHaveGc].}
+{.deprecated: [Py_TPFLAGS_DEFAULT: tpflagsDefault].}
 
 type 
   PFlag* = enum 
@@ -183,7 +183,7 @@ type
   PFlags* = set[PFlag]
 
 const 
-  tpflagsDefault* = {tpfHaveGetCharBuffer, tpfHaveSequenceIn, 
+  tpflagsDefaultSet* = {tpfHaveGetCharBuffer, tpfHaveSequenceIn, 
     tpfHaveInplaceOps, tpfHaveRichCompare, tpfHaveWeakRefs, tpfHaveIter, 
     tpfHaveClass}
 {.deprecated: [TPFLAGS_DEFAULT: tpflagsDefault].}
@@ -197,7 +197,7 @@ const # Python opcodes
   varargslist* = 261
   fpdef* = 262
   fplist* = 263
-  stmt* = 264
+  statement* = 264
   simpleStmt* = 265
   smallStmt* = 266
   exprStmt* = 267
@@ -229,7 +229,7 @@ const # Python opcodes
   notTest* = 293
   comparison* = 294
   compOp* = 295
-  expr* = 296
+  expression* = 296
   xorExpr* = 297
   andExpr* = 298
   shiftExpr* = 299
@@ -275,9 +275,6 @@ const
   readRestricted* = 2
   writeRestricted* = 4
   restricted* = (readRestricted or writeRestricted)
-  pySingleInput* = 256
-  pyFileInput*   = 257
-  pyEvalInput*   = 258
 {.deprecated: [T_SHORT: tShort].}
 {.deprecated: [T_INT: tInt].}
 {.deprecated: [T_LONG: tLong].}
@@ -395,7 +392,7 @@ type
     nbInplaceXor*: BinaryFunc
     nbInplaceOr*: BinaryFunc 
     # Added in release 2.2
-    # The following require the pyTpflagsHaveClass flag
+    # The following require the tpflagsHaveClass flag
     nbFloorDivide*: BinaryFunc
     nbTrueDivide*: BinaryFunc
     nbInplaceFloorDivide*: BinaryFunc
@@ -1031,1021 +1028,1021 @@ var
   DLL_Py_GetBuildInfo*: proc (): cstring{.cdecl.}
 
 var
-  pyDebugFlag*: IntPtr
-  pyVerboseFlag*: IntPtr
-  pyInteractiveFlag*: IntPtr
-  pyOptimizeFlag*: IntPtr
-  pyNoSiteFlag*: IntPtr
-  pyUseClassExceptionsFlag*: IntPtr
-  pyFrozenFlag*: IntPtr
-  pyTabcheckFlag*: IntPtr
-  pyUnicodeFlag*: IntPtr
-  pyIgnoreEnvironmentFlag*: IntPtr
-  pyDivisionWarningFlag*: IntPtr 
+  debugFlag*: IntPtr
+  verboseFlag*: IntPtr
+  interactiveFlag*: IntPtr
+  optimizeFlag*: IntPtr
+  noSiteFlag*: IntPtr
+  useClassExceptionsFlag*: IntPtr
+  frozenFlag*: IntPtr
+  tabcheckFlag*: IntPtr
+  unicodeFlag*: IntPtr
+  ignoreEnvironmentFlag*: IntPtr
+  divisionWarningFlag*: IntPtr 
   #_PySys_TraceFunc: PyObjectPtrPtr;
   #_PySys_ProfileFunc: PyObjectPtrPtrPtr;
-  pyImportFrozenModules*: FrozenPtrPtr
-  pyNone*: PyObjectPtr
-  pyEllipsis*: PyObjectPtr
-  pyFalse*: PyIntObjectPtr
-  pyTrue*: PyIntObjectPtr
-  pyNotImplemented*: PyObjectPtr
-  pyExcAttributeError*: PyObjectPtrPtr
-  pyExcEOFError*: PyObjectPtrPtr
-  pyExcIOError*: PyObjectPtrPtr
-  pyExcImportError*: PyObjectPtrPtr
-  pyExcIndexError*: PyObjectPtrPtr
-  pyExcKeyError*: PyObjectPtrPtr
-  pyExcKeyboardInterrupt*: PyObjectPtrPtr
-  pyExcMemoryError*: PyObjectPtrPtr
-  pyExcNameError*: PyObjectPtrPtr
-  pyExcOverflowError*: PyObjectPtrPtr
-  pyExcRuntimeError*: PyObjectPtrPtr
-  pyExcSyntaxError*: PyObjectPtrPtr
-  pyExcSystemError*: PyObjectPtrPtr
-  pyExcSystemExit*: PyObjectPtrPtr
-  pyExcTypeError*: PyObjectPtrPtr
-  pyExcValueError*: PyObjectPtrPtr
-  pyExcZeroDivisionError*: PyObjectPtrPtr
-  pyExcArithmeticError*: PyObjectPtrPtr
-  pyExcException*: PyObjectPtrPtr
-  pyExcFloatingPointError*: PyObjectPtrPtr
-  pyExcLookupError*: PyObjectPtrPtr
-  pyExcStandardError*: PyObjectPtrPtr
-  pyExcAssertionError*: PyObjectPtrPtr
-  pyExcEnvironmentError*: PyObjectPtrPtr
-  pyExcIndentationError*: PyObjectPtrPtr
-  pyExcMemoryErrorInst*: PyObjectPtrPtr
-  pyExcNotImplementedError*: PyObjectPtrPtr
-  pyExcOSError*: PyObjectPtrPtr
-  pyExcTabError*: PyObjectPtrPtr
-  pyExcUnboundLocalError*: PyObjectPtrPtr
-  pyExcUnicodeError*: PyObjectPtrPtr
-  pyExcWarning*: PyObjectPtrPtr
-  pyExcDeprecationWarning*: PyObjectPtrPtr
-  pyExcRuntimeWarning*: PyObjectPtrPtr
-  pyExcSyntaxWarning*: PyObjectPtrPtr
-  pyExcUserWarning*: PyObjectPtrPtr
-  pyExcOverflowWarning*: PyObjectPtrPtr
-  pyExcReferenceError*: PyObjectPtrPtr
-  pyExcStopIteration*: PyObjectPtrPtr
-  pyExcFutureWarning*: PyObjectPtrPtr
-  pyExcPendingDeprecationWarning*: PyObjectPtrPtr
-  pyExcUnicodeDecodeError*: PyObjectPtrPtr
-  pyExcUnicodeEncodeError*: PyObjectPtrPtr
-  pyExcUnicodeTranslateError*: PyObjectPtrPtr
-  pyTypeType*: PyTypeObjectPtr
-  pyCfunctionType*: PyTypeObjectPtr
-  pyCobjectType*: PyTypeObjectPtr
-  pyClassType*: PyTypeObjectPtr
-  pyCodeType*: PyTypeObjectPtr
-  pyComplexType*: PyTypeObjectPtr
-  pyDictType*: PyTypeObjectPtr
-  pyFileType*: PyTypeObjectPtr
-  pyFloatType*: PyTypeObjectPtr
-  pyFrameType*: PyTypeObjectPtr
-  pyFunctionType*: PyTypeObjectPtr
-  pyInstanceType*: PyTypeObjectPtr
-  pyIntType*: PyTypeObjectPtr
-  pyListType*: PyTypeObjectPtr
-  pyLongType*: PyTypeObjectPtr
-  pyMethodType*: PyTypeObjectPtr
-  pyModuleType*: PyTypeObjectPtr
-  pyObjectType*: PyTypeObjectPtr
-  pyRangeType*: PyTypeObjectPtr
-  pySliceType*: PyTypeObjectPtr
-  pyStringType*: PyTypeObjectPtr
-  pyTupleType*: PyTypeObjectPtr
-  pyBaseobjectType*: PyTypeObjectPtr
-  pyBufferType*: PyTypeObjectPtr
-  pyCalliterType*: PyTypeObjectPtr
-  pyCellType*: PyTypeObjectPtr
-  pyClassmethodType*: PyTypeObjectPtr
-  pyPropertyType*: PyTypeObjectPtr
-  pySeqiterType*: PyTypeObjectPtr
-  pyStaticmethodType*: PyTypeObjectPtr
-  pySuperType*: PyTypeObjectPtr
-  pySymtableentryType*: PyTypeObjectPtr
-  pyTracebackType*: PyTypeObjectPtr
-  pyUnicodeType*: PyTypeObjectPtr
-  pyWrapperdescrType*: PyTypeObjectPtr
-  pyBasestringType*: PyTypeObjectPtr
-  pyBoolType*: PyTypeObjectPtr
-  pyEnumType*: PyTypeObjectPtr
-{.deprecated: [Py_DebugFlag: pyDebugFlag].}
-{.deprecated: [Py_VerboseFlag: pyVerboseFlag].}
-{.deprecated: [Py_InteractiveFlag: pyInteractiveFlag].}
-{.deprecated: [Py_OptimizeFlag: pyOptimizeFlag].}
-{.deprecated: [Py_NoSiteFlag: pyNoSiteFlag].}
-{.deprecated: [Py_UseClassExceptionsFlag: pyUseClassExceptionsFlag].}
-{.deprecated: [Py_FrozenFlag: pyFrozenFlag].}
-{.deprecated: [Py_TabcheckFlag: pyTabcheckFlag].}
-{.deprecated: [Py_UnicodeFlag: pyUnicodeFlag].}
-{.deprecated: [Py_IgnoreEnvironmentFlag: pyIgnoreEnvironmentFlag].}
-{.deprecated: [Py_DivisionWarningFlag: pyDivisionWarningFlag].}
-{.deprecated: [PyImport_FrozenModules: pyImportFrozenModules].}
-{.deprecated: [Py_None: pyNone].}
-{.deprecated: [Py_Ellipsis: pyEllipsis].}
-{.deprecated: [Py_False: pyFalse].}
-{.deprecated: [Py_True: pyTrue].}
-{.deprecated: [Py_NotImplemented: pyNotImplemented].}
-{.deprecated: [PyExc_AttributeError: pyExcAttributeError].}
-{.deprecated: [PyExc_EOFError: pyExcEOFError].}
-{.deprecated: [PyExc_IOError: pyExcIOError].}
-{.deprecated: [PyExc_ImportError: pyExcImportError].}
-{.deprecated: [PyExc_IndexError: pyExcIndexError].}
-{.deprecated: [PyExc_KeyError: pyExcKeyError].}
-{.deprecated: [PyExc_KeyboardInterrupt: pyExcKeyboardInterrupt].}
-{.deprecated: [PyExc_MemoryError: pyExcMemoryError].}
-{.deprecated: [PyExc_NameError: pyExcNameError].}
-{.deprecated: [PyExc_OverflowError: pyExcOverflowError].}
-{.deprecated: [PyExc_RuntimeError: pyExcRuntimeError].}
-{.deprecated: [PyExc_SyntaxError: pyExcSyntaxError].}
-{.deprecated: [PyExc_SystemError: pyExcSystemError].}
-{.deprecated: [PyExc_SystemExit: pyExcSystemExit].}
-{.deprecated: [PyExc_TypeError: pyExcTypeError].}
-{.deprecated: [PyExc_ValueError: pyExcValueError].}
-{.deprecated: [PyExc_ZeroDivisionError: pyExcZeroDivisionError].}
-{.deprecated: [PyExc_ArithmeticError: pyExcArithmeticError].}
-{.deprecated: [PyExc_Exception: pyExcException].}
-{.deprecated: [PyExc_FloatingPointError: pyExcFloatingPointError].}
-{.deprecated: [PyExc_LookupError: pyExcLookupError].}
-{.deprecated: [PyExc_StandardError: pyExcStandardError].}
-{.deprecated: [PyExc_AssertionError: pyExcAssertionError].}
-{.deprecated: [PyExc_EnvironmentError: pyExcEnvironmentError].}
-{.deprecated: [PyExc_IndentationError: pyExcIndentationError].}
-{.deprecated: [PyExc_MemoryErrorInst: pyExcMemoryErrorInst].}
-{.deprecated: [PyExc_NotImplementedError: pyExcNotImplementedError].}
-{.deprecated: [PyExc_OSError: pyExcOSError].}
-{.deprecated: [PyExc_TabError: pyExcTabError].}
-{.deprecated: [PyExc_UnboundLocalError: pyExcUnboundLocalError].}
-{.deprecated: [PyExc_UnicodeError: pyExcUnicodeError].}
-{.deprecated: [PyExc_Warning: pyExcWarning].}
-{.deprecated: [PyExc_DeprecationWarning: pyExcDeprecationWarning].}
-{.deprecated: [PyExc_RuntimeWarning: pyExcRuntimeWarning].}
-{.deprecated: [PyExc_SyntaxWarning: pyExcSyntaxWarning].}
-{.deprecated: [PyExc_UserWarning: pyExcUserWarning].}
-{.deprecated: [PyExc_OverflowWarning: pyExcOverflowWarning].}
-{.deprecated: [PyExc_ReferenceError: pyExcReferenceError].}
-{.deprecated: [PyExc_StopIteration: pyExcStopIteration].}
-{.deprecated: [PyExc_FutureWarning: pyExcFutureWarning].}
-{.deprecated: [PyExc_PendingDeprecationWarning: pyExcPendingDeprecationWarning].}
-{.deprecated: [PyExc_UnicodeDecodeError: pyExcUnicodeDecodeError].}
-{.deprecated: [PyExc_UnicodeEncodeError: pyExcUnicodeEncodeError].}
-{.deprecated: [PyExc_UnicodeTranslateError: pyExcUnicodeTranslateError].}
-{.deprecated: [PyType_Type: pyTypeType].}
-{.deprecated: [PyCFunction_Type: pyCfunctionType].}
-{.deprecated: [PyCObject_Type: pyCobjectType].}
-{.deprecated: [PyClass_Type: pyClassType].}
-{.deprecated: [PyCode_Type: pyCodeType].}
-{.deprecated: [PyComplex_Type: pyComplexType].}
-{.deprecated: [PyDict_Type: pyDictType].}
-{.deprecated: [PyFile_Type: pyFileType].}
-{.deprecated: [PyFloat_Type: pyFloatType].}
-{.deprecated: [PyFrame_Type: pyFrameType].}
-{.deprecated: [PyFunction_Type: pyFunctionType].}
-{.deprecated: [PyInstance_Type: pyInstanceType].}
-{.deprecated: [PyInt_Type: pyIntType].}
-{.deprecated: [PyList_Type: pyListType].}
-{.deprecated: [PyLong_Type: pyLongType].}
-{.deprecated: [PyMethod_Type: pyMethodType].}
-{.deprecated: [PyModule_Type: pyModuleType].}
-{.deprecated: [PyObject_Type: pyObjectType].}
-{.deprecated: [PyRange_Type: pyRangeType].}
-{.deprecated: [PySlice_Type: pySliceType].}
-{.deprecated: [PyString_Type: pyStringType].}
-{.deprecated: [PyTuple_Type: pyTupleType].}
-{.deprecated: [PyBaseObject_Type: pyBaseobjectType].}
-{.deprecated: [PyBuffer_Type: pyBufferType].}
-{.deprecated: [PyCallIter_Type: pyCalliterType].}
-{.deprecated: [PyCell_Type: pyCellType].}
-{.deprecated: [PyClassMethod_Type: pyClassmethodType].}
-{.deprecated: [PyProperty_Type: pyPropertyType].}
-{.deprecated: [PySeqIter_Type: pySeqiterType].}
-{.deprecated: [PyStaticMethod_Type: pyStaticmethodType].}
-{.deprecated: [PySuper_Type: pySuperType].}
-{.deprecated: [PySymtableEntry_Type: pySymtableentryType].}
-{.deprecated: [PyTraceBack_Type: pyTracebackType].}
-{.deprecated: [PyUnicode_Type: pyUnicodeType].}
-{.deprecated: [PyWrapperDescr_Type: pyWrapperdescrType].}
-{.deprecated: [PyBaseString_Type: pyBasestringType].}
-{.deprecated: [PyBool_Type: pyBoolType].}
-{.deprecated: [PyEnum_Type: pyEnumType].}
+  importFrozenModules*: FrozenPtrPtr
+  noneVar*: PyObjectPtr
+  ellipsis*: PyObjectPtr
+  falseVar*: PyIntObjectPtr
+  trueVar*: PyIntObjectPtr
+  notImplemented*: PyObjectPtr
+  excAttributeError*: PyObjectPtrPtr
+  excEOFError*: PyObjectPtrPtr
+  excIOError*: PyObjectPtrPtr
+  excImportError*: PyObjectPtrPtr
+  excIndexError*: PyObjectPtrPtr
+  excKeyError*: PyObjectPtrPtr
+  excKeyboardInterrupt*: PyObjectPtrPtr
+  excMemoryError*: PyObjectPtrPtr
+  excNameError*: PyObjectPtrPtr
+  excOverflowError*: PyObjectPtrPtr
+  excRuntimeError*: PyObjectPtrPtr
+  excSyntaxError*: PyObjectPtrPtr
+  excSystemError*: PyObjectPtrPtr
+  excSystemExit*: PyObjectPtrPtr
+  excTypeError*: PyObjectPtrPtr
+  excValueError*: PyObjectPtrPtr
+  excZeroDivisionError*: PyObjectPtrPtr
+  excArithmeticError*: PyObjectPtrPtr
+  excException*: PyObjectPtrPtr
+  excFloatingPointError*: PyObjectPtrPtr
+  excLookupError*: PyObjectPtrPtr
+  excStandardError*: PyObjectPtrPtr
+  excAssertionError*: PyObjectPtrPtr
+  excEnvironmentError*: PyObjectPtrPtr
+  excIndentationError*: PyObjectPtrPtr
+  excMemoryErrorInst*: PyObjectPtrPtr
+  excNotImplementedError*: PyObjectPtrPtr
+  excOSError*: PyObjectPtrPtr
+  excTabError*: PyObjectPtrPtr
+  excUnboundLocalError*: PyObjectPtrPtr
+  excUnicodeError*: PyObjectPtrPtr
+  excWarning*: PyObjectPtrPtr
+  excDeprecationWarning*: PyObjectPtrPtr
+  excRuntimeWarning*: PyObjectPtrPtr
+  excSyntaxWarning*: PyObjectPtrPtr
+  excUserWarning*: PyObjectPtrPtr
+  excOverflowWarning*: PyObjectPtrPtr
+  excReferenceError*: PyObjectPtrPtr
+  excStopIteration*: PyObjectPtrPtr
+  excFutureWarning*: PyObjectPtrPtr
+  excPendingDeprecationWarning*: PyObjectPtrPtr
+  excUnicodeDecodeError*: PyObjectPtrPtr
+  excUnicodeEncodeError*: PyObjectPtrPtr
+  excUnicodeTranslateError*: PyObjectPtrPtr
+  typeType*: PyTypeObjectPtr
+  cfunctionType*: PyTypeObjectPtr
+  cobjectType*: PyTypeObjectPtr
+  classType*: PyTypeObjectPtr
+  codeType*: PyTypeObjectPtr
+  complexType*: PyTypeObjectPtr
+  dictType*: PyTypeObjectPtr
+  fileType*: PyTypeObjectPtr
+  floatType*: PyTypeObjectPtr
+  frameType*: PyTypeObjectPtr
+  functionType*: PyTypeObjectPtr
+  instanceType*: PyTypeObjectPtr
+  intType*: PyTypeObjectPtr
+  listType*: PyTypeObjectPtr
+  longType*: PyTypeObjectPtr
+  methodType*: PyTypeObjectPtr
+  moduleType*: PyTypeObjectPtr
+  objectType*: PyTypeObjectPtr
+  rangeType*: PyTypeObjectPtr
+  sliceType*: PyTypeObjectPtr
+  stringType*: PyTypeObjectPtr
+  tupleType*: PyTypeObjectPtr
+  baseobjectType*: PyTypeObjectPtr
+  bufferType*: PyTypeObjectPtr
+  calliterType*: PyTypeObjectPtr
+  cellType*: PyTypeObjectPtr
+  classmethodType*: PyTypeObjectPtr
+  propertyType*: PyTypeObjectPtr
+  seqiterType*: PyTypeObjectPtr
+  staticmethodType*: PyTypeObjectPtr
+  superType*: PyTypeObjectPtr
+  symtableentryType*: PyTypeObjectPtr
+  tracebackType*: PyTypeObjectPtr
+  unicodeType*: PyTypeObjectPtr
+  wrapperdescrType*: PyTypeObjectPtr
+  basestringType*: PyTypeObjectPtr
+  boolType*: PyTypeObjectPtr
+  enumType*: PyTypeObjectPtr
+{.deprecated: [Py_DebugFlag: debugFlag].}
+{.deprecated: [Py_VerboseFlag: verboseFlag].}
+{.deprecated: [Py_InteractiveFlag: interactiveFlag].}
+{.deprecated: [Py_OptimizeFlag: optimizeFlag].}
+{.deprecated: [Py_NoSiteFlag: noSiteFlag].}
+{.deprecated: [Py_UseClassExceptionsFlag: useClassExceptionsFlag].}
+{.deprecated: [Py_FrozenFlag: frozenFlag].}
+{.deprecated: [Py_TabcheckFlag: tabcheckFlag].}
+{.deprecated: [Py_UnicodeFlag: unicodeFlag].}
+{.deprecated: [Py_IgnoreEnvironmentFlag: ignoreEnvironmentFlag].}
+{.deprecated: [Py_DivisionWarningFlag: divisionWarningFlag].}
+{.deprecated: [PyImport_FrozenModules: importFrozenModules].}
+{.deprecated: [Py_None: noneVar].}
+{.deprecated: [Py_Ellipsis: ellipsis].}
+{.deprecated: [Py_False: falseVar].}
+{.deprecated: [Py_True: trueVar].}
+{.deprecated: [Py_NotImplemented: notImplemented].}
+{.deprecated: [PyExc_AttributeError: excAttributeError].}
+{.deprecated: [PyExc_EOFError: excEOFError].}
+{.deprecated: [PyExc_IOError: excIOError].}
+{.deprecated: [PyExc_ImportError: excImportError].}
+{.deprecated: [PyExc_IndexError: excIndexError].}
+{.deprecated: [PyExc_KeyError: excKeyError].}
+{.deprecated: [PyExc_KeyboardInterrupt: excKeyboardInterrupt].}
+{.deprecated: [PyExc_MemoryError: excMemoryError].}
+{.deprecated: [PyExc_NameError: excNameError].}
+{.deprecated: [PyExc_OverflowError: excOverflowError].}
+{.deprecated: [PyExc_RuntimeError: excRuntimeError].}
+{.deprecated: [PyExc_SyntaxError: excSyntaxError].}
+{.deprecated: [PyExc_SystemError: excSystemError].}
+{.deprecated: [PyExc_SystemExit: excSystemExit].}
+{.deprecated: [PyExc_TypeError: excTypeError].}
+{.deprecated: [PyExc_ValueError: excValueError].}
+{.deprecated: [PyExc_ZeroDivisionError: excZeroDivisionError].}
+{.deprecated: [PyExc_ArithmeticError: excArithmeticError].}
+{.deprecated: [PyExc_Exception: excException].}
+{.deprecated: [PyExc_FloatingPointError: excFloatingPointError].}
+{.deprecated: [PyExc_LookupError: excLookupError].}
+{.deprecated: [PyExc_StandardError: excStandardError].}
+{.deprecated: [PyExc_AssertionError: excAssertionError].}
+{.deprecated: [PyExc_EnvironmentError: excEnvironmentError].}
+{.deprecated: [PyExc_IndentationError: excIndentationError].}
+{.deprecated: [PyExc_MemoryErrorInst: excMemoryErrorInst].}
+{.deprecated: [PyExc_NotImplementedError: excNotImplementedError].}
+{.deprecated: [PyExc_OSError: excOSError].}
+{.deprecated: [PyExc_TabError: excTabError].}
+{.deprecated: [PyExc_UnboundLocalError: excUnboundLocalError].}
+{.deprecated: [PyExc_UnicodeError: excUnicodeError].}
+{.deprecated: [PyExc_Warning: excWarning].}
+{.deprecated: [PyExc_DeprecationWarning: excDeprecationWarning].}
+{.deprecated: [PyExc_RuntimeWarning: excRuntimeWarning].}
+{.deprecated: [PyExc_SyntaxWarning: excSyntaxWarning].}
+{.deprecated: [PyExc_UserWarning: excUserWarning].}
+{.deprecated: [PyExc_OverflowWarning: excOverflowWarning].}
+{.deprecated: [PyExc_ReferenceError: excReferenceError].}
+{.deprecated: [PyExc_StopIteration: excStopIteration].}
+{.deprecated: [PyExc_FutureWarning: excFutureWarning].}
+{.deprecated: [PyExc_PendingDeprecationWarning: excPendingDeprecationWarning].}
+{.deprecated: [PyExc_UnicodeDecodeError: excUnicodeDecodeError].}
+{.deprecated: [PyExc_UnicodeEncodeError: excUnicodeEncodeError].}
+{.deprecated: [PyExc_UnicodeTranslateError: excUnicodeTranslateError].}
+{.deprecated: [PyType_Type: typeType].}
+{.deprecated: [PyCFunction_Type: cfunctionType].}
+{.deprecated: [PyCObject_Type: cobjectType].}
+{.deprecated: [PyClass_Type: classType].}
+{.deprecated: [PyCode_Type: codeType].}
+{.deprecated: [PyComplex_Type: complexType].}
+{.deprecated: [PyDict_Type: dictType].}
+{.deprecated: [PyFile_Type: fileType].}
+{.deprecated: [PyFloat_Type: floatType].}
+{.deprecated: [PyFrame_Type: frameType].}
+{.deprecated: [PyFunction_Type: functionType].}
+{.deprecated: [PyInstance_Type: instanceType].}
+{.deprecated: [PyInt_Type: intType].}
+{.deprecated: [PyList_Type: listType].}
+{.deprecated: [PyLong_Type: longType].}
+{.deprecated: [PyMethod_Type: methodType].}
+{.deprecated: [PyModule_Type: moduleType].}
+{.deprecated: [PyObject_Type: objectType].}
+{.deprecated: [PyRange_Type: rangeType].}
+{.deprecated: [PySlice_Type: sliceType].}
+{.deprecated: [PyString_Type: stringType].}
+{.deprecated: [PyTuple_Type: tupleType].}
+{.deprecated: [PyBaseObject_Type: baseobjectType].}
+{.deprecated: [PyBuffer_Type: bufferType].}
+{.deprecated: [PyCallIter_Type: calliterType].}
+{.deprecated: [PyCell_Type: cellType].}
+{.deprecated: [PyClassMethod_Type: classmethodType].}
+{.deprecated: [PyProperty_Type: propertyType].}
+{.deprecated: [PySeqIter_Type: seqiterType].}
+{.deprecated: [PyStaticMethod_Type: staticmethodType].}
+{.deprecated: [PySuper_Type: superType].}
+{.deprecated: [PySymtableEntry_Type: symtableentryType].}
+{.deprecated: [PyTraceBack_Type: tracebackType].}
+{.deprecated: [PyUnicode_Type: unicodeType].}
+{.deprecated: [PyWrapperDescr_Type: wrapperdescrType].}
+{.deprecated: [PyBaseString_Type: basestringType].}
+{.deprecated: [PyBool_Type: boolType].}
+{.deprecated: [PyEnum_Type: enumType].}
 
-proc pyVaBuildValue*(format: cstring; va_list: varargs): PyObjectPtr{.cdecl, 
+proc vaBuildValue*(format: cstring; va_list: varargs): PyObjectPtr{.cdecl, 
   importc: "Py_VaBuildValue", dynlib: dllname.}
-proc pyBuiltinInit*(){.cdecl, importc: "_PyBuiltin_Init", dynlib: dllname.}
-proc pyComplexFromCComplex*(c: PyComplex): PyObjectPtr{.cdecl, 
+proc builtinInit*(){.cdecl, importc: "_PyBuiltin_Init", dynlib: dllname.}
+proc complexFromCComplex*(c: PyComplex): PyObjectPtr{.cdecl, 
   importc: "PyComplex_FromCComplex", dynlib: dllname.}
-proc pyComplexFromDoubles*(realv, imag: float64): PyObjectPtr{.cdecl, 
+proc complexFromDoubles*(realv, imag: float64): PyObjectPtr{.cdecl, 
   importc: "PyComplex_FromDoubles", dynlib: dllname.}
-proc pyComplexRealAsDouble*(op: PyObjectPtr): float64{.cdecl, 
+proc complexRealAsDouble*(op: PyObjectPtr): float64{.cdecl, 
   importc: "PyComplex_RealAsDouble", dynlib: dllname.}
-proc pyComplexImagAsDouble*(op: PyObjectPtr): float64{.cdecl, 
+proc complexImagAsDouble*(op: PyObjectPtr): float64{.cdecl, 
   importc: "PyComplex_ImagAsDouble", dynlib: dllname.}
-proc pyComplexAsCComplex*(op: PyObjectPtr): PyComplex{.cdecl, 
+proc complexAsCComplex*(op: PyObjectPtr): PyComplex{.cdecl, 
   importc: "PyComplex_AsCComplex", dynlib: dllname.}
-proc pyCfunctionGetFunction*(ob: PyObjectPtr): pointer{.cdecl, 
+proc cfunctionGetFunction*(ob: PyObjectPtr): pointer{.cdecl, 
   importc: "PyCFunction_GetFunction", dynlib: dllname.}
-proc pyCfunctionGetSelf*(ob: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc cfunctionGetSelf*(ob: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyCFunction_GetSelf", dynlib: dllname.}
-proc pyCallableCheck*(ob: PyObjectPtr): int{.cdecl, importc: "PyCallable_Check", 
+proc callableCheck*(ob: PyObjectPtr): int{.cdecl, importc: "PyCallable_Check", 
   dynlib: dllname.}
-proc pyCobjectFromVoidPtr*(cobj, destruct: pointer): PyObjectPtr{.cdecl, 
+proc cobjectFromVoidPtr*(cobj, destruct: pointer): PyObjectPtr{.cdecl, 
   importc: "PyCObject_FromVoidPtr", dynlib: dllname.}
-proc pyCobjectAsVoidPtr*(ob: PyObjectPtr): pointer{.cdecl, 
+proc cobjectAsVoidPtr*(ob: PyObjectPtr): pointer{.cdecl, 
   importc: "PyCObject_AsVoidPtr", dynlib: dllname.}
-proc pyClassNew*(ob1, ob2, ob3: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc classNew*(ob1, ob2, ob3: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyClass_New", dynlib: dllname.}
-proc pyClassIsSubclass*(ob1, ob2: PyObjectPtr): int{.cdecl, 
+proc classIsSubclass*(ob1, ob2: PyObjectPtr): int{.cdecl, 
   importc: "PyClass_IsSubclass", dynlib: dllname.}
-proc pyInitModule4*(name: cstring, methods: PyMethodDefPtr, doc: cstring, 
+proc initModule4*(name: cstring, methods: PyMethodDefPtr, doc: cstring, 
                     passthrough: PyObjectPtr, Api_Version: int): PyObjectPtr{.
                     cdecl, importc: "Py_InitModule4", dynlib: dllname.}
-proc pyErrBadArgument*(): int{.cdecl, importc: "PyErr_BadArgument", 
+proc errBadArgument*(): int{.cdecl, importc: "PyErr_BadArgument", 
   dynlib: dllname.}
-proc pyErrBadInternalCall*(){.cdecl, importc: "PyErr_BadInternalCall", 
+proc errBadInternalCall*(){.cdecl, importc: "PyErr_BadInternalCall", 
   dynlib: dllname.}
-proc pyErrCheckSignals*(): int{.cdecl, importc: "PyErr_CheckSignals", 
+proc errCheckSignals*(): int{.cdecl, importc: "PyErr_CheckSignals", 
   dynlib: dllname.}
-proc pyErrClear*(){.cdecl, importc: "PyErr_Clear", dynlib: dllname.}
-proc pyErrFetch*(errtype, errvalue, errtraceback: PyObjectPtrPtr){.cdecl, 
+proc errClear*(){.cdecl, importc: "PyErr_Clear", dynlib: dllname.}
+proc errFetch*(errtype, errvalue, errtraceback: PyObjectPtrPtr){.cdecl, 
   importc: "PyErr_Fetch", dynlib: dllname.}
-proc pyErrNoMemory*(): PyObjectPtr{.cdecl, importc: "PyErr_NoMemory", 
+proc errNoMemory*(): PyObjectPtr{.cdecl, importc: "PyErr_NoMemory", 
   dynlib: dllname.}
-proc pyErrOccurred*(): PyObjectPtr{.cdecl, importc: "PyErr_Occurred", 
+proc errOccurred*(): PyObjectPtr{.cdecl, importc: "PyErr_Occurred", 
   dynlib: dllname.}
-proc pyErrPrint*(){.cdecl, importc: "PyErr_Print", dynlib: dllname.}
-proc pyErrRestore*(errtype, errvalue, errtraceback: PyObjectPtr){.cdecl, 
+proc errPrint*(){.cdecl, importc: "PyErr_Print", dynlib: dllname.}
+proc errRestore*(errtype, errvalue, errtraceback: PyObjectPtr){.cdecl, 
   importc: "PyErr_Restore", dynlib: dllname.}
-proc pyErrSetFromErrno*(ob: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc errSetFromErrno*(ob: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyErr_SetFromErrno", dynlib: dllname.}
-proc pyErrSetNone*(value: PyObjectPtr){.cdecl, importc: "PyErr_SetNone", 
+proc errSetNone*(value: PyObjectPtr){.cdecl, importc: "PyErr_SetNone", 
   dynlib: dllname.}
-proc pyErrSetObject*(ob1, ob2: PyObjectPtr){.cdecl, importc: "PyErr_SetObject", 
+proc errSetObject*(ob1, ob2: PyObjectPtr){.cdecl, importc: "PyErr_SetObject", 
   dynlib: dllname.}
-proc pyErrSetString*(ErrorObject: PyObjectPtr, text: cstring){.cdecl, 
+proc errSetString*(ErrorObject: PyObjectPtr, text: cstring){.cdecl, 
   importc: "PyErr_SetString", dynlib: dllname.}
-proc pyImportGetModuleDict*(): PyObjectPtr{.cdecl, 
+proc importGetModuleDict*(): PyObjectPtr{.cdecl, 
   importc: "PyImport_GetModuleDict", dynlib: dllname.}
-proc pyIntFromLong*(x: int32): PyObjectPtr{.cdecl, importc: "PyInt_FromLong", 
+proc intFromLong*(x: int32): PyObjectPtr{.cdecl, importc: "PyInt_FromLong", 
   dynlib: dllname.}
-proc pyInitialize*(){.cdecl, importc: "Py_Initialize", 
+proc initialize*(){.cdecl, importc: "Py_Initialize", 
   dynlib: dllname.}
-proc pyExit*(RetVal: int){.cdecl, importc: "Py_Exit", 
+proc exit*(RetVal: int){.cdecl, importc: "Py_Exit", 
   dynlib: dllname.}
-proc pyEvalGetBuiltins*(): PyObjectPtr{.cdecl, importc: "PyEval_GetBuiltins", 
+proc evalGetBuiltins*(): PyObjectPtr{.cdecl, importc: "PyEval_GetBuiltins", 
   dynlib: dllname.}
-proc pyDictGetItem*(mp, key: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc dictGetItem*(mp, key: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyDict_GetItem", dynlib: dllname.}
-proc pyDictSetItem*(mp, key, item: PyObjectPtr): int{.cdecl, 
+proc dictSetItem*(mp, key, item: PyObjectPtr): int{.cdecl, 
   importc: "PyDict_SetItem", dynlib: dllname.}
-proc pyDictDelItem*(mp, key: PyObjectPtr): int{.cdecl, 
+proc dictDelItem*(mp, key: PyObjectPtr): int{.cdecl, 
   importc: "PyDict_DelItem", dynlib: dllname.}
-proc pyDictClear*(mp: PyObjectPtr){.cdecl, importc: "PyDict_Clear", 
+proc dictClear*(mp: PyObjectPtr){.cdecl, importc: "PyDict_Clear", 
   dynlib: dllname.}
-proc pyDictNext*(mp: PyObjectPtr, pos: IntPtr, key, 
+proc dictNext*(mp: PyObjectPtr, pos: IntPtr, key, 
                  value: PyObjectPtrPtr): int{.cdecl, importc: "PyDict_Next", 
                  dynlib: dllname.}
-proc pyDictKeys*(mp: PyObjectPtr): PyObjectPtr{.cdecl, importc: "PyDict_Keys", 
+proc dictKeys*(mp: PyObjectPtr): PyObjectPtr{.cdecl, importc: "PyDict_Keys", 
   dynlib: dllname.}
-proc pyDictValues*(mp: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc dictValues*(mp: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyDict_Values", dynlib: dllname.}
-proc pyDictItems*(mp: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc dictItems*(mp: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyDict_Items", dynlib: dllname.}
-proc pyDictSize*(mp: PyObjectPtr): int{.cdecl, importc: "PyDict_Size", 
+proc dictSize*(mp: PyObjectPtr): int{.cdecl, importc: "PyDict_Size", 
   dynlib: dllname.}
-proc pyDictDelItemString*(dp: PyObjectPtr, key: cstring): int{.cdecl, 
+proc dictDelItemString*(dp: PyObjectPtr, key: cstring): int{.cdecl, 
   importc: "PyDict_DelItemString", dynlib: dllname.}
-proc pyDictNew*(): PyObjectPtr{.cdecl, importc: "PyDict_New", 
+proc dictNew*(): PyObjectPtr{.cdecl, importc: "PyDict_New", 
   dynlib: dllname.}
-proc pyDictGetItemString*(dp: PyObjectPtr, key: cstring): PyObjectPtr{.cdecl, 
+proc dictGetItemString*(dp: PyObjectPtr, key: cstring): PyObjectPtr{.cdecl, 
   importc: "PyDict_GetItemString", dynlib: dllname.}
-proc pyDictSetItemString*(dp: PyObjectPtr, key: cstring, 
+proc dictSetItemString*(dp: PyObjectPtr, key: cstring, 
                           item: PyObjectPtr): int{.cdecl, 
                           importc: "PyDict_SetItemString", dynlib: dllname.}
-proc pyDictproxyNew*(obj: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc dictproxyNew*(obj: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyDictProxy_New", dynlib: dllname.}
-proc pyModuleGetDict*(module: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc moduleGetDict*(module: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyModule_GetDict", dynlib: dllname.}
-proc pyObjectStr*(v: PyObjectPtr): PyObjectPtr{.cdecl, importc: "PyObject_Str", 
+proc objectStr*(v: PyObjectPtr): PyObjectPtr{.cdecl, importc: "PyObject_Str", 
   dynlib: dllname.}
-proc pyRunString*(str: cstring, start: int, globals: PyObjectPtr, 
+proc runString*(str: cstring, start: int, globals: PyObjectPtr, 
                   locals: PyObjectPtr): PyObjectPtr{.cdecl, 
                   importc: "PyRun_String", dynlib: dllname.}
-proc pyRunSimpleString*(str: cstring): int{.cdecl, 
+proc runSimpleString*(str: cstring): int{.cdecl, 
   importc: "PyRun_SimpleString", dynlib: dllname.}
-proc pyStringAsString*(ob: PyObjectPtr): cstring{.cdecl, 
+proc stringAsString*(ob: PyObjectPtr): cstring{.cdecl, 
   importc: "PyString_AsString", dynlib: dllname.}
-proc pyStringFromString*(str: cstring): PyObjectPtr{.cdecl, 
+proc stringFromString*(str: cstring): PyObjectPtr{.cdecl, 
   importc: "PyString_FromString", dynlib: dllname.}
-proc pySysSetArgv*(argc: int, argv: cstringArray){.cdecl, 
+proc sysSetArgv*(argc: int, argv: cstringArray){.cdecl, 
   importc: "PySys_SetArgv", dynlib: dllname.} 
 #+ means, Grzegorz or me has tested his non object version of this function
 #+
-proc pyCfunctionNew*(md: PyMethodDefPtr, ob: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc cfunctionNew*(md: PyMethodDefPtr, ob: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyCFunction_New", dynlib: dllname.} #+
-proc pyEvalCallObject*(ob1, ob2: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc evalCallObject*(ob1, ob2: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyEval_CallObject", dynlib: dllname.} #-
-proc pyEvalCallObjectWithKeywords*(ob1, ob2, ob3: PyObjectPtr): PyObjectPtr{.cdecl,
+proc evalCallObjectWithKeywords*(ob1, ob2, ob3: PyObjectPtr): PyObjectPtr{.cdecl,
    importc: "PyEval_CallObjectWithKeywords", dynlib: dllname.} #-
-proc pyEvalGetFrame*(): PyObjectPtr{.cdecl, importc: "PyEval_GetFrame", 
+proc evalGetFrame*(): PyObjectPtr{.cdecl, importc: "PyEval_GetFrame", 
   dynlib: dllname.} #-
-proc pyEvalGetGlobals*(): PyObjectPtr{.cdecl, importc: "PyEval_GetGlobals", 
+proc evalGetGlobals*(): PyObjectPtr{.cdecl, importc: "PyEval_GetGlobals", 
   dynlib: dllname.} #-
-proc pyEvalGetLocals*(): PyObjectPtr{.cdecl, importc: "PyEval_GetLocals", 
+proc evalGetLocals*(): PyObjectPtr{.cdecl, importc: "PyEval_GetLocals", 
   dynlib: dllname.} #-
-proc pyEvalGetOwner*(): PyObjectPtr {.cdecl, importc: "PyEval_GetOwner", 
+proc evalGetOwner*(): PyObjectPtr {.cdecl, importc: "PyEval_GetOwner", 
   dynlib: dllname.}
-proc pyEvalGetRestricted*(): int{.cdecl, importc: "PyEval_GetRestricted", 
+proc evalGetRestricted*(): int{.cdecl, importc: "PyEval_GetRestricted", 
   dynlib: dllname.} #-
-proc pyEvalInitThreads*(){.cdecl, importc: "PyEval_InitThreads", 
+proc evalInitThreads*(){.cdecl, importc: "PyEval_InitThreads", 
   dynlib: dllname.} #-
-proc pyEvalRestoreThread*(tstate: PyThreadStatePtr){.cdecl, 
+proc evalRestoreThread*(tstate: PyThreadStatePtr){.cdecl, 
   importc: "PyEval_RestoreThread", dynlib: dllname.} #-
-proc pyEvalSaveThread*(): PyThreadStatePtr{.cdecl, 
+proc evalSaveThread*(): PyThreadStatePtr{.cdecl, 
   importc: "PyEval_SaveThread", dynlib: dllname.} #-
-proc pyFileFromString*(pc1, pc2: cstring): PyObjectPtr{.cdecl, 
+proc fileFromString*(pc1, pc2: cstring): PyObjectPtr{.cdecl, 
   importc: "PyFile_FromString", dynlib: dllname.} #-
-proc pyFileGetLine*(ob: PyObjectPtr, i: int): PyObjectPtr{.cdecl, 
+proc fileGetLine*(ob: PyObjectPtr, i: int): PyObjectPtr{.cdecl, 
   importc: "PyFile_GetLine", dynlib: dllname.} #-
-proc pyFileName*(ob: PyObjectPtr): PyObjectPtr{.cdecl, importc: "PyFile_Name", 
+proc fileName*(ob: PyObjectPtr): PyObjectPtr{.cdecl, importc: "PyFile_Name", 
   dynlib: dllname.} #-
-proc pyFileSetBufSize*(ob: PyObjectPtr, i: int){.cdecl, 
+proc fileSetBufSize*(ob: PyObjectPtr, i: int){.cdecl, 
   importc: "PyFile_SetBufSize", dynlib: dllname.} #-
-proc pyFileSoftSpace*(ob: PyObjectPtr, i: int): int{.cdecl, 
+proc fileSoftSpace*(ob: PyObjectPtr, i: int): int{.cdecl, 
   importc: "PyFile_SoftSpace", dynlib: dllname.} #-
-proc pyFileWriteObject*(ob1, ob2: PyObjectPtr, i: int): int{.cdecl, 
+proc fileWriteObject*(ob1, ob2: PyObjectPtr, i: int): int{.cdecl, 
   importc: "PyFile_WriteObject", dynlib: dllname.} #-
-proc pyFileWriteString*(s: cstring, ob: PyObjectPtr){.cdecl, 
+proc fileWriteString*(s: cstring, ob: PyObjectPtr){.cdecl, 
   importc: "PyFile_WriteString", dynlib: dllname.} #+
-proc pyFloatAsDouble*(ob: PyObjectPtr): float64{.cdecl, 
+proc floatAsDouble*(ob: PyObjectPtr): float64{.cdecl, 
   importc: "PyFloat_AsDouble", dynlib: dllname.} #+
-proc pyFloatFromDouble*(db: float64): PyObjectPtr{.cdecl, 
+proc floatFromDouble*(db: float64): PyObjectPtr{.cdecl, 
   importc: "PyFloat_FromDouble", dynlib: dllname.} #-
-proc pyFunctionGetCode*(ob: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc functionGetCode*(ob: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyFunction_GetCode", dynlib: dllname.} #-
-proc pyFunctionGetGlobals*(ob: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc functionGetGlobals*(ob: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyFunction_GetGlobals", dynlib: dllname.} #-
-proc pyFunctionNew*(ob1, ob2: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc functionNew*(ob1, ob2: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyFunction_New", dynlib: dllname.} #-
-proc pyImportAddModule*(name: cstring): PyObjectPtr{.cdecl, 
+proc importAddModule*(name: cstring): PyObjectPtr{.cdecl, 
   importc: "PyImport_AddModule", dynlib: dllname.} #-
-proc pyImportCleanup*(){.cdecl, importc: "PyImport_Cleanup", 
+proc importCleanup*(){.cdecl, importc: "PyImport_Cleanup", 
   dynlib: dllname.} #-
-proc pyImportGetMagicNumber*(): int32{.cdecl, 
+proc importGetMagicNumber*(): int32{.cdecl, 
   importc: "PyImport_GetMagicNumber", dynlib: dllname.} #+
-proc pyImportImportFrozenModule*(key: cstring): int{.cdecl, 
+proc importImportFrozenModule*(key: cstring): int{.cdecl, 
   importc: "PyImport_ImportFrozenModule", dynlib: dllname.} #+
-proc pyImportImportModule*(name: cstring): PyObjectPtr{.cdecl, 
+proc importImportModule*(name: cstring): PyObjectPtr{.cdecl, 
   importc: "PyImport_ImportModule", dynlib: dllname.} #+
-proc pyImportImport*(name: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc importImport*(name: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyImport_Import", dynlib: dllname.} #-
-proc pyImportInit*() {.cdecl, importc: "PyImport_Init", 
+proc importInit*() {.cdecl, importc: "PyImport_Init", 
   dynlib: dllname.}
-proc pyImportReloadModule*(ob: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc importReloadModule*(ob: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyImport_ReloadModule", dynlib: dllname.} #-
-proc pyInstanceNew*(obClass, obArg, obKW: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc instanceNew*(obClass, obArg, obKW: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyInstance_New", dynlib: dllname.} #+
-proc pyIntAsLong*(ob: PyObjectPtr): int32{.cdecl, importc: "PyInt_AsLong", 
+proc intAsLong*(ob: PyObjectPtr): int32{.cdecl, importc: "PyInt_AsLong", 
   dynlib: dllname.} #-
-proc pyListAppend*(ob1, ob2: PyObjectPtr): int{.cdecl, 
+proc listAppend*(ob1, ob2: PyObjectPtr): int{.cdecl, 
   importc: "PyList_Append", dynlib: dllname.} #-
-proc pyListAsTuple*(ob: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc listAsTuple*(ob: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyList_AsTuple", dynlib: dllname.} #+
-proc pyListGetItem*(ob: PyObjectPtr, i: int): PyObjectPtr{.cdecl, 
+proc listGetItem*(ob: PyObjectPtr, i: int): PyObjectPtr{.cdecl, 
   importc: "PyList_GetItem", dynlib: dllname.} #-
-proc pyListGetSlice*(ob: PyObjectPtr, i1, i2: int): PyObjectPtr{.cdecl, 
+proc listGetSlice*(ob: PyObjectPtr, i1, i2: int): PyObjectPtr{.cdecl, 
   importc: "PyList_GetSlice", dynlib: dllname.} #-
-proc pyListInsert*(dp: PyObjectPtr, idx: int, item: PyObjectPtr): int{.cdecl, 
+proc listInsert*(dp: PyObjectPtr, idx: int, item: PyObjectPtr): int{.cdecl, 
   importc: "PyList_Insert", dynlib: dllname.} #-
-proc pyListNew*(size: int): PyObjectPtr{.cdecl, importc: "PyList_New", 
+proc listNew*(size: int): PyObjectPtr{.cdecl, importc: "PyList_New", 
   dynlib: dllname.} #-
-proc pyListReverse*(ob: PyObjectPtr): int{.cdecl, importc: "PyList_Reverse", 
+proc listReverse*(ob: PyObjectPtr): int{.cdecl, importc: "PyList_Reverse", 
   dynlib: dllname.} #-
-proc pyListSetItem*(dp: PyObjectPtr, idx: int, item: PyObjectPtr): int{.cdecl, 
+proc listSetItem*(dp: PyObjectPtr, idx: int, item: PyObjectPtr): int{.cdecl, 
   importc: "PyList_SetItem", dynlib: dllname.} #-
-proc pyListSetSlice*(ob: PyObjectPtr, i1, i2: int, ob2: PyObjectPtr): int{.cdecl,
+proc listSetSlice*(ob: PyObjectPtr, i1, i2: int, ob2: PyObjectPtr): int{.cdecl,
    importc: "PyList_SetSlice", dynlib: dllname.} #+
-proc pyListSize*(ob: PyObjectPtr): int{.cdecl, importc: "PyList_Size", 
+proc listSize*(ob: PyObjectPtr): int{.cdecl, importc: "PyList_Size", 
   dynlib: dllname.} #-
-proc pyListSort*(ob: PyObjectPtr): int{.cdecl, importc: "PyList_Sort", 
+proc listSort*(ob: PyObjectPtr): int{.cdecl, importc: "PyList_Sort", 
   dynlib: dllname.} #-
-proc pyLongAsDouble*(ob: PyObjectPtr): float64{.cdecl, 
+proc longAsDouble*(ob: PyObjectPtr): float64{.cdecl, 
   importc: "PyLong_AsDouble", dynlib: dllname.} #+
-proc pyLongAsLong*(ob: PyObjectPtr): int32{.cdecl, importc: "PyLong_AsLong", 
+proc longAsLong*(ob: PyObjectPtr): int32{.cdecl, importc: "PyLong_AsLong", 
   dynlib: dllname.} #+
-proc pyLongFromDouble*(db: float64): PyObjectPtr{.cdecl, 
+proc longFromDouble*(db: float64): PyObjectPtr{.cdecl, 
   importc: "PyLong_FromDouble", dynlib: dllname.} #+
-proc pyLongFromLong*(L: int32): PyObjectPtr{.cdecl, importc: "PyLong_FromLong", 
+proc longFromLong*(L: int32): PyObjectPtr{.cdecl, importc: "PyLong_FromLong", 
   dynlib: dllname.} #-
-proc pyLongFromString*(pc: cstring, ppc: var cstring, i: int): PyObjectPtr{.cdecl,
+proc longFromString*(pc: cstring, ppc: var cstring, i: int): PyObjectPtr{.cdecl,
    importc: "PyLong_FromString", dynlib: dllname.} #-
-proc pyLongFromUnsignedLong*(val: int): PyObjectPtr{.cdecl, 
+proc longFromUnsignedLong*(val: int): PyObjectPtr{.cdecl, 
   importc: "PyLong_FromUnsignedLong", dynlib: dllname.} #-
-proc pyLongAsUnsignedLong*(ob: PyObjectPtr): int{.cdecl, 
+proc longAsUnsignedLong*(ob: PyObjectPtr): int{.cdecl, 
   importc: "PyLong_AsUnsignedLong", dynlib: dllname.} #-
-proc pyLongFromUnicode*(ob: PyObjectPtr, a, b: int): PyObjectPtr{.cdecl, 
+proc longFromUnicode*(ob: PyObjectPtr, a, b: int): PyObjectPtr{.cdecl, 
   importc: "PyLong_FromUnicode", dynlib: dllname.} #-
-proc pyLongFromLongLong*(val: int64): PyObjectPtr{.cdecl, 
+proc longFromLongLong*(val: int64): PyObjectPtr{.cdecl, 
   importc: "PyLong_FromLongLong", dynlib: dllname.} #-
-proc pyLongAsLongLong*(ob: PyObjectPtr): int64{.cdecl, 
+proc longAsLongLong*(ob: PyObjectPtr): int64{.cdecl, 
   importc: "PyLong_AsLongLong", dynlib: dllname.} #-
-proc pyMappingCheck*(ob: PyObjectPtr): int{.cdecl, importc: "PyMapping_Check", 
+proc mappingCheck*(ob: PyObjectPtr): int{.cdecl, importc: "PyMapping_Check", 
   dynlib: dllname.} #-
-proc pyMappingGetItemString*(ob: PyObjectPtr, key: cstring): PyObjectPtr{.cdecl,
+proc mappingGetItemString*(ob: PyObjectPtr, key: cstring): PyObjectPtr{.cdecl,
    importc: "PyMapping_GetItemString", dynlib: dllname.} #-
-proc pyMappingHasKey*(ob, key: PyObjectPtr): int{.cdecl, 
+proc mappingHasKey*(ob, key: PyObjectPtr): int{.cdecl, 
   importc: "PyMapping_HasKey", dynlib: dllname.} #-
-proc pyMappingHasKeyString*(ob: PyObjectPtr, key: cstring): int{.cdecl, 
+proc mappingHasKeyString*(ob: PyObjectPtr, key: cstring): int{.cdecl, 
   importc: "PyMapping_HasKeyString", dynlib: dllname.} #-
-proc pyMappingLength*(ob: PyObjectPtr): int{.cdecl, 
+proc mappingLength*(ob: PyObjectPtr): int{.cdecl, 
   importc: "PyMapping_Length", dynlib: dllname.} #-
-proc pyMappingSetItemString*(ob: PyObjectPtr, key: cstring, 
+proc mappingSetItemString*(ob: PyObjectPtr, key: cstring, 
                              value: PyObjectPtr): int{.cdecl, 
                              importc: "PyMapping_SetItemString", 
                              dynlib: dllname.} #-
-proc pyMethodClass*(ob: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc methodClass*(ob: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyMethod_Class", dynlib: dllname.} #-
-proc pyMethodFunction*(ob: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc methodFunction*(ob: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyMethod_Function", dynlib: dllname.} #-
-proc pyMethodNew*(ob1, ob2, ob3: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc methodNew*(ob1, ob2, ob3: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyMethod_New", dynlib: dllname.} #-
-proc pyMethodSelf*(ob: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc methodSelf*(ob: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyMethod_Self", dynlib: dllname.} #-
-proc pyModuleGetName*(ob: PyObjectPtr): cstring{.cdecl, 
+proc moduleGetName*(ob: PyObjectPtr): cstring{.cdecl, 
   importc: "PyModule_GetName", dynlib: dllname.} #-
-proc pyModuleNew*(key: cstring): PyObjectPtr{.cdecl, importc: "PyModule_New", 
+proc moduleNew*(key: cstring): PyObjectPtr{.cdecl, importc: "PyModule_New", 
   dynlib: dllname.} #-
-proc pyNumberAbsolute*(ob: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc numberAbsolute*(ob: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyNumber_Absolute", dynlib: dllname.} #-
-proc pyNumberAdd*(ob1, ob2: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc numberAdd*(ob1, ob2: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyNumber_Add", dynlib: dllname.} #-
-proc pyNumberAnd*(ob1, ob2: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc numberAnd*(ob1, ob2: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyNumber_And", dynlib: dllname.} #-
-proc pyNumberCheck*(ob: PyObjectPtr): int{.cdecl, importc: "PyNumber_Check", 
+proc numberCheck*(ob: PyObjectPtr): int{.cdecl, importc: "PyNumber_Check", 
   dynlib: dllname.} #-
-proc pyNumberCoerce*(ob1, ob2: var PyObjectPtr): int{.cdecl, 
+proc numberCoerce*(ob1, ob2: var PyObjectPtr): int{.cdecl, 
   importc: "PyNumber_Coerce", dynlib: dllname.} #-
-proc pyNumberDivide*(ob1, ob2: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc numberDivide*(ob1, ob2: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyNumber_Divide", dynlib: dllname.} #-
-proc pyNumberFloorDivide*(ob1, ob2: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc numberFloorDivide*(ob1, ob2: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyNumber_FloorDivide", dynlib: dllname.} #-
-proc pyNumberTrueDivide*(ob1, ob2: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc numberTrueDivide*(ob1, ob2: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyNumber_TrueDivide", dynlib: dllname.} #-
-proc pyNumberDivmod*(ob1, ob2: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc numberDivmod*(ob1, ob2: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyNumber_Divmod", dynlib: dllname.} #-
-proc pyNumberFloat*(ob: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc numberFloat*(ob: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyNumber_Float", dynlib: dllname.} #-
-proc pyNumberInt*(ob: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc numberInt*(ob: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyNumber_Int", dynlib: dllname.} #-
-proc pyNumberInvert*(ob: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc numberInvert*(ob: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyNumber_Invert", dynlib: dllname.} #-
-proc pyNumberLong*(ob: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc numberLong*(ob: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyNumber_Long", dynlib: dllname.} #-
-proc pyNumberLshift*(ob1, ob2: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc numberLshift*(ob1, ob2: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyNumber_Lshift", dynlib: dllname.} #-
-proc pyNumberMultiply*(ob1, ob2: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc numberMultiply*(ob1, ob2: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyNumber_Multiply", dynlib: dllname.} #-
-proc pyNumberNegative*(ob: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc numberNegative*(ob: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyNumber_Negative", dynlib: dllname.} #-
-proc pyNumberOr*(ob1, ob2: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc numberOr*(ob1, ob2: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyNumber_Or", dynlib: dllname.} #-
-proc pyNumberPositive*(ob: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc numberPositive*(ob: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyNumber_Positive", dynlib: dllname.} #-
-proc pyNumberPower*(ob1, ob2, ob3: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc numberPower*(ob1, ob2, ob3: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyNumber_Power", dynlib: dllname.} #-
-proc pyNumberRemainder*(ob1, ob2: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc numberRemainder*(ob1, ob2: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyNumber_Remainder", dynlib: dllname.} #-
-proc pyNumberRshift*(ob1, ob2: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc numberRshift*(ob1, ob2: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyNumber_Rshift", dynlib: dllname.} #-
-proc pyNumberSubtract*(ob1, ob2: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc numberSubtract*(ob1, ob2: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyNumber_Subtract", dynlib: dllname.} #-
-proc pyNumberXor*(ob1, ob2: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc numberXor*(ob1, ob2: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyNumber_Xor", dynlib: dllname.} #-
-proc pyOsInitInterrupts*(){.cdecl, importc: "PyOS_InitInterrupts", 
+proc osInitInterrupts*(){.cdecl, importc: "PyOS_InitInterrupts", 
   dynlib: dllname.} #-
-proc pyOsInterruptOccurred*(): int{.cdecl, importc: "PyOS_InterruptOccurred", 
+proc osInterruptOccurred*(): int{.cdecl, importc: "PyOS_InterruptOccurred", 
   dynlib: dllname.} #-
-proc pyObjectCallObject*(ob, args: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc objectCallObject*(ob, args: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyObject_CallObject", dynlib: dllname.} #-
-proc pyObjectCompare*(ob1, ob2: PyObjectPtr): int{.cdecl, 
+proc objectCompare*(ob1, ob2: PyObjectPtr): int{.cdecl, 
   importc: "PyObject_Compare", dynlib: dllname.} #-
-proc pyObjectGetAttr*(ob1, ob2: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc objectGetAttr*(ob1, ob2: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyObject_GetAttr", dynlib: dllname.} #+
-proc pyObjectGetAttrString*(ob: PyObjectPtr, c: cstring): PyObjectPtr{.cdecl, 
+proc objectGetAttrString*(ob: PyObjectPtr, c: cstring): PyObjectPtr{.cdecl, 
   importc: "PyObject_GetAttrString", dynlib: dllname.} #-
-proc pyObjectGetItem*(ob, key: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc objectGetItem*(ob, key: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyObject_GetItem", dynlib: dllname.} #-
-proc pyObjectDelItem*(ob, key: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc objectDelItem*(ob, key: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyObject_DelItem", dynlib: dllname.} #-
-proc pyObjectHasAttrString*(ob: PyObjectPtr, key: cstring): int{.cdecl, 
+proc objectHasAttrString*(ob: PyObjectPtr, key: cstring): int{.cdecl, 
   importc: "PyObject_HasAttrString", dynlib: dllname.} #-
-proc pyObjectHash*(ob: PyObjectPtr): int32{.cdecl, importc: "PyObject_Hash", 
+proc objectHash*(ob: PyObjectPtr): int32{.cdecl, importc: "PyObject_Hash", 
   dynlib: dllname.} #-
-proc pyObjectIsTrue*(ob: PyObjectPtr): int{.cdecl, importc: "PyObject_IsTrue", 
+proc objectIsTrue*(ob: PyObjectPtr): int{.cdecl, importc: "PyObject_IsTrue", 
   dynlib: dllname.} #-
-proc pyObjectLength*(ob: PyObjectPtr): int{.cdecl, importc: "PyObject_Length", 
+proc objectLength*(ob: PyObjectPtr): int{.cdecl, importc: "PyObject_Length", 
   dynlib: dllname.} #-
-proc pyObjectRepr*(ob: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc objectRepr*(ob: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyObject_Repr", dynlib: dllname.} #-
-proc pyObjectSetAttr*(ob1, ob2, ob3: PyObjectPtr): int{.cdecl, 
+proc objectSetAttr*(ob1, ob2, ob3: PyObjectPtr): int{.cdecl, 
   importc: "PyObject_SetAttr", dynlib: dllname.} #-
-proc pyObjectSetAttrString*(ob: PyObjectPtr, key: cstring, 
+proc objectSetAttrString*(ob: PyObjectPtr, key: cstring, 
                             value: PyObjectPtr): int{.cdecl, 
                             importc: "PyObject_SetAttrString", dynlib: dllname.} #-
-proc pyObjectSetItem*(ob1, ob2, ob3: PyObjectPtr): int{.cdecl, 
+proc objectSetItem*(ob1, ob2, ob3: PyObjectPtr): int{.cdecl, 
   importc: "PyObject_SetItem", dynlib: dllname.} #-
-proc pyObjectInit*(ob: PyObjectPtr, t: PyTypeObjectPtr): PyObjectPtr{.cdecl, 
+proc objectInit*(ob: PyObjectPtr, t: PyTypeObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyObject_Init", dynlib: dllname.} #-
-proc pyObjectInitVar*(ob: PyObjectPtr, t: PyTypeObjectPtr, 
+proc objectInitVar*(ob: PyObjectPtr, t: PyTypeObjectPtr, 
                       size: int): PyObjectPtr{.cdecl, importc: "PyObject_InitVar", 
                       dynlib: dllname.} #-
-proc pyObjectNew*(t: PyTypeObjectPtr): PyObjectPtr{.cdecl, 
+proc objectNew*(t: PyTypeObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyObject_New", dynlib: dllname.} #-
-proc pyObjectNewVar*(t: PyTypeObjectPtr, size: int): PyObjectPtr{.cdecl, 
+proc objectNewVar*(t: PyTypeObjectPtr, size: int): PyObjectPtr{.cdecl, 
   importc: "PyObject_NewVar", dynlib: dllname.}
-proc pyObjectFree*(ob: PyObjectPtr){.cdecl, importc: "PyObject_Free", 
+proc objectFree*(ob: PyObjectPtr){.cdecl, importc: "PyObject_Free", 
   dynlib: dllname.} #-
-proc pyObjectIsInstance*(inst, cls: PyObjectPtr): int{.cdecl, 
+proc objectIsInstance*(inst, cls: PyObjectPtr): int{.cdecl, 
   importc: "PyObject_IsInstance", dynlib: dllname.} #-
-proc pyObjectIsSubclass*(derived, cls: PyObjectPtr): int{.cdecl, 
+proc objectIsSubclass*(derived, cls: PyObjectPtr): int{.cdecl, 
   importc: "PyObject_IsSubclass", dynlib: dllname.}
-proc pyObjectGenericGetAttr*(obj, name: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc objectGenericGetAttr*(obj, name: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyObject_GenericGetAttr", dynlib: dllname.}
-proc pyObjectGenericSetAttr*(obj, name, value: PyObjectPtr): int{.cdecl, 
+proc objectGenericSetAttr*(obj, name, value: PyObjectPtr): int{.cdecl, 
   importc: "PyObject_GenericSetAttr", dynlib: dllname.} #-
-proc pyObjectGCMalloc*(size: int): PyObjectPtr{.cdecl, 
+proc objectGCMalloc*(size: int): PyObjectPtr{.cdecl, 
   importc: "PyObject_GC_Malloc", dynlib: dllname.} #-
-proc pyObjectGCNew*(t: PyTypeObjectPtr): PyObjectPtr{.cdecl, 
+proc objectGCNew*(t: PyTypeObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyObject_GC_New", dynlib: dllname.} #-
-proc pyObjectGCNewVar*(t: PyTypeObjectPtr, size: int): PyObjectPtr{.cdecl, 
+proc objectGCNewVar*(t: PyTypeObjectPtr, size: int): PyObjectPtr{.cdecl, 
   importc: "PyObject_GC_NewVar", dynlib: dllname.} #-
-proc pyObjectGCResize*(t: PyObjectPtr, newsize: int): PyObjectPtr{.cdecl, 
+proc objectGCResize*(t: PyObjectPtr, newsize: int): PyObjectPtr{.cdecl, 
   importc: "PyObject_GC_Resize", dynlib: dllname.} #-
-proc pyObjectGCDel*(ob: PyObjectPtr){.cdecl, importc: "PyObject_GC_Del", 
+proc objectGCDel*(ob: PyObjectPtr){.cdecl, importc: "PyObject_GC_Del", 
   dynlib: dllname.} #-
-proc pyObjectGCTrack*(ob: PyObjectPtr){.cdecl, importc: "PyObject_GC_Track", 
+proc objectGCTrack*(ob: PyObjectPtr){.cdecl, importc: "PyObject_GC_Track", 
   dynlib: dllname.} #-
-proc pyObjectGCUnTrack*(ob: PyObjectPtr){.cdecl, 
+proc objectGCUnTrack*(ob: PyObjectPtr){.cdecl, 
   importc: "PyObject_GC_UnTrack", dynlib: dllname.} #-
-proc pyRangeNew*(l1, l2, l3: int32, i: int): PyObjectPtr{.cdecl, 
+proc rangeNew*(l1, l2, l3: int32, i: int): PyObjectPtr{.cdecl, 
   importc: "PyRange_New", dynlib: dllname.} #-
-proc pySequenceCheck*(ob: PyObjectPtr): int{.cdecl, 
+proc sequenceCheck*(ob: PyObjectPtr): int{.cdecl, 
   importc: "PySequence_Check", dynlib: dllname.} #-
-proc pySequenceConcat*(ob1, ob2: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc sequenceConcat*(ob1, ob2: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PySequence_Concat", dynlib: dllname.} #-
-proc pySequenceCount*(ob1, ob2: PyObjectPtr): int{.cdecl, 
+proc sequenceCount*(ob1, ob2: PyObjectPtr): int{.cdecl, 
   importc: "PySequence_Count", dynlib: dllname.} #-
-proc pySequenceGetItem*(ob: PyObjectPtr, i: int): PyObjectPtr{.cdecl, 
+proc sequenceGetItem*(ob: PyObjectPtr, i: int): PyObjectPtr{.cdecl, 
   importc: "PySequence_GetItem", dynlib: dllname.} #-
-proc pySequenceGetSlice*(ob: PyObjectPtr, i1, i2: int): PyObjectPtr{.cdecl, 
+proc sequenceGetSlice*(ob: PyObjectPtr, i1, i2: int): PyObjectPtr{.cdecl, 
   importc: "PySequence_GetSlice", dynlib: dllname.} #-
-proc pySequenceIn*(ob1, ob2: PyObjectPtr): int{.cdecl, 
+proc sequenceIn*(ob1, ob2: PyObjectPtr): int{.cdecl, 
   importc: "PySequence_In", dynlib: dllname.} #-
-proc pySequenceIndex*(ob1, ob2: PyObjectPtr): int{.cdecl, 
+proc sequenceIndex*(ob1, ob2: PyObjectPtr): int{.cdecl, 
   importc: "PySequence_Index", dynlib: dllname.} #-
-proc pySequenceLength*(ob: PyObjectPtr): int{.cdecl, 
+proc sequenceLength*(ob: PyObjectPtr): int{.cdecl, 
   importc: "PySequence_Length", dynlib: dllname.} #-
-proc pySequenceRepeat*(ob: PyObjectPtr, count: int): PyObjectPtr{.cdecl, 
+proc sequenceRepeat*(ob: PyObjectPtr, count: int): PyObjectPtr{.cdecl, 
   importc: "PySequence_Repeat", dynlib: dllname.} #-
-proc pySequenceSetItem*(ob: PyObjectPtr, i: int, value: PyObjectPtr): int{.cdecl,
+proc sequenceSetItem*(ob: PyObjectPtr, i: int, value: PyObjectPtr): int{.cdecl,
    importc: "PySequence_SetItem", dynlib: dllname.} #-
-proc pySequenceSetSlice*(ob: PyObjectPtr, i1, i2: int, 
+proc sequenceSetSlice*(ob: PyObjectPtr, i1, i2: int, 
                          value: PyObjectPtr): int{.cdecl, 
                          importc: "PySequence_SetSlice", dynlib: dllname.} #-
-proc pySequenceDelSlice*(ob: PyObjectPtr, i1, i2: int): int{.cdecl, 
+proc sequenceDelSlice*(ob: PyObjectPtr, i1, i2: int): int{.cdecl, 
   importc: "PySequence_DelSlice", dynlib: dllname.} #-
-proc pySequenceTuple*(ob: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc sequenceTuple*(ob: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PySequence_Tuple", dynlib: dllname.} #-
-proc pySequenceContains*(ob, value: PyObjectPtr): int{.cdecl, 
+proc sequenceContains*(ob, value: PyObjectPtr): int{.cdecl, 
   importc: "PySequence_Contains", dynlib: dllname.} #-
-proc pySliceGetIndices*(ob: PySliceObjectPtr, len: int, 
+proc sliceGetIndices*(ob: PySliceObjectPtr, len: int, 
                         start, stop, step: var int): int{.cdecl, 
                         importc: "PySlice_GetIndices", dynlib: dllname.} #-
-proc pySliceGetIndicesEx*(ob: PySliceObjectPtr, len: int, 
+proc sliceGetIndicesEx*(ob: PySliceObjectPtr, len: int, 
                           start, stop, step, slicelength: var int): int{.cdecl, 
                           importc: "PySlice_GetIndicesEx", dynlib: dllname.} #-
-proc pySliceNew*(start, stop, step: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc sliceNew*(start, stop, step: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PySlice_New", dynlib: dllname.} #-
-proc pyStringConcat*(ob1: var PyObjectPtr, ob2: PyObjectPtr){.cdecl, 
+proc stringConcat*(ob1: var PyObjectPtr, ob2: PyObjectPtr){.cdecl, 
   importc: "PyString_Concat", dynlib: dllname.} #-
-proc pyStringConcatAndDel*(ob1: var PyObjectPtr, ob2: PyObjectPtr){.cdecl, 
+proc stringConcatAndDel*(ob1: var PyObjectPtr, ob2: PyObjectPtr){.cdecl, 
   importc: "PyString_ConcatAndDel", dynlib: dllname.} #-
-proc pyStringFormat*(ob1, ob2: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc stringFormat*(ob1, ob2: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyString_Format", dynlib: dllname.} #-
-proc pyStringFromStringAndSize*(s: cstring, i: int): PyObjectPtr{.cdecl, 
+proc stringFromStringAndSize*(s: cstring, i: int): PyObjectPtr{.cdecl, 
   importc: "PyString_FromStringAndSize", dynlib: dllname.} #-
-proc pyStringSize*(ob: PyObjectPtr): int{.cdecl, importc: "PyString_Size", 
+proc stringSize*(ob: PyObjectPtr): int{.cdecl, importc: "PyString_Size", 
   dynlib: dllname.} #-
-proc pyStringDecodeEscape*(s: cstring, length: int, errors: cstring, unicode: int, 
+proc stringDecodeEscape*(s: cstring, length: int, errors: cstring, unicode: int, 
                            recode_encoding: cstring): PyObjectPtr{.cdecl, 
                            importc: "PyString_DecodeEscape", dynlib: dllname.} #-
-proc pyStringRepr*(ob: PyObjectPtr, smartquotes: int): PyObjectPtr{.cdecl, 
+proc stringRepr*(ob: PyObjectPtr, smartquotes: int): PyObjectPtr{.cdecl, 
   importc: "PyString_Repr", dynlib: dllname.} #+
-proc pySysGetObject*(s: cstring): PyObjectPtr{.cdecl, 
+proc sysGetObject*(s: cstring): PyObjectPtr{.cdecl, 
   importc: "PySys_GetObject", dynlib: dllname.} #-
 #-
 #PySys_Init:procedure; cdecl, importc, dynlib: dllname;
 #-
-proc pySysSetObject*(s: cstring, ob: PyObjectPtr): int{.cdecl, 
+proc sysSetObject*(s: cstring, ob: PyObjectPtr): int{.cdecl, 
   importc: "PySys_SetObject", dynlib: dllname.} #-
-proc pySysSetPath*(path: cstring){.cdecl, importc: "PySys_SetPath", 
+proc sysSetPath*(path: cstring){.cdecl, importc: "PySys_SetPath", 
   dynlib: dllname.} #-
 #PyTraceBack_Fetch:function:PyObjectPtr; cdecl, importc, dynlib: dllname;
 #-
-proc pyTracebackHere*(p: pointer): int{.cdecl, importc: "PyTraceBack_Here", 
+proc tracebackHere*(p: pointer): int{.cdecl, importc: "PyTraceBack_Here", 
   dynlib: dllname.} #-
-proc pyTracebackPrint*(ob1, ob2: PyObjectPtr): int{.cdecl, 
+proc tracebackPrint*(ob1, ob2: PyObjectPtr): int{.cdecl, 
   importc: "PyTraceBack_Print", dynlib: dllname.} #-
 #PyTraceBack_Store:function (ob:PyObjectPtr):integer; cdecl, importc, dynlib: dllname;
 #+
-proc pyTupleGetItem*(ob: PyObjectPtr, i: int): PyObjectPtr{.cdecl, 
+proc tupleGetItem*(ob: PyObjectPtr, i: int): PyObjectPtr{.cdecl, 
   importc: "PyTuple_GetItem", dynlib: dllname.} #-
-proc pyTupleGetSlice*(ob: PyObjectPtr, i1, i2: int): PyObjectPtr{.cdecl, 
+proc tupleGetSlice*(ob: PyObjectPtr, i1, i2: int): PyObjectPtr{.cdecl, 
   importc: "PyTuple_GetSlice", dynlib: dllname.} #+
-proc pyTupleNew*(size: int): PyObjectPtr{.cdecl, importc: "PyTuple_New", 
+proc tupleNew*(size: int): PyObjectPtr{.cdecl, importc: "PyTuple_New", 
   dynlib: dllname.} #+
-proc pyTupleSetItem*(ob: PyObjectPtr, key: int, value: PyObjectPtr): int{.cdecl,
+proc tupleSetItem*(ob: PyObjectPtr, key: int, value: PyObjectPtr): int{.cdecl,
    importc: "PyTuple_SetItem", dynlib: dllname.} #+
-proc pyTupleSize*(ob: PyObjectPtr): int{.cdecl, importc: "PyTuple_Size", 
+proc tupleSize*(ob: PyObjectPtr): int{.cdecl, importc: "PyTuple_Size", 
   dynlib: dllname.} #+
-proc pyTypeIsSubtype*(a, b: PyTypeObjectPtr): int{.cdecl, 
+proc typeIsSubtype*(a, b: PyTypeObjectPtr): int{.cdecl, 
   importc: "PyType_IsSubtype", dynlib: dllname.}
-proc pyTypeGenericAlloc*(atype: PyTypeObjectPtr, nitems: int): PyObjectPtr{.cdecl,
+proc typeGenericAlloc*(atype: PyTypeObjectPtr, nitems: int): PyObjectPtr{.cdecl,
    importc: "PyType_GenericAlloc", dynlib: dllname.}
-proc pyTypeGenericNew*(atype: PyTypeObjectPtr, 
+proc typeGenericNew*(atype: PyTypeObjectPtr, 
                        args, kwds: PyObjectPtr): PyObjectPtr{.cdecl, 
                        importc: "PyType_GenericNew", dynlib: dllname.}
-proc pyTypeReady*(atype: PyTypeObjectPtr): int{.cdecl, importc: "PyType_Ready", 
+proc typeReady*(atype: PyTypeObjectPtr): int{.cdecl, importc: "PyType_Ready", 
   dynlib: dllname.} #+
-proc pyUnicodeFromWideChar*(w: pointer, size: int): PyObjectPtr{.cdecl, 
+proc unicodeFromWideChar*(w: pointer, size: int): PyObjectPtr{.cdecl, 
   importc: "PyUnicode_FromWideChar", dynlib: dllname.} #+
-proc pyUnicodeAsWideChar*(unicode: PyObjectPtr, w: pointer, size: int): int{.cdecl,
+proc unicodeAsWideChar*(unicode: PyObjectPtr, w: pointer, size: int): int{.cdecl,
    importc: "PyUnicode_AsWideChar", dynlib: dllname.} #-
-proc pyUnicodeFromOrdinal*(ordinal: int): PyObjectPtr{.cdecl, 
+proc unicodeFromOrdinal*(ordinal: int): PyObjectPtr{.cdecl, 
   importc: "PyUnicode_FromOrdinal", dynlib: dllname.}
-proc pyWeakrefGetObject*(theRef: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc weakrefGetObject*(theRef: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyWeakref_GetObject", dynlib: dllname.}
-proc pyWeakrefNewProxy*(ob, callback: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc weakrefNewProxy*(ob, callback: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyWeakref_NewProxy", dynlib: dllname.}
-proc pyWeakrefNewRef*(ob, callback: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc weakrefNewRef*(ob, callback: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyWeakref_NewRef", dynlib: dllname.}
-proc pyWrapperNew*(ob1, ob2: PyObjectPtr): PyObjectPtr{.cdecl, 
+proc wrapperNew*(ob1, ob2: PyObjectPtr): PyObjectPtr{.cdecl, 
   importc: "PyWrapper_New", dynlib: dllname.}
-proc pyBoolFromLong*(ok: int): PyObjectPtr{.cdecl, importc: "PyBool_FromLong", 
+proc boolFromLong*(ok: int): PyObjectPtr{.cdecl, importc: "PyBool_FromLong", 
   dynlib: dllname.} #-
-proc pyAtExit*(prc: proc () {.cdecl.}): int{.cdecl, importc: "Py_AtExit", 
+proc atExit*(prc: proc () {.cdecl.}): int{.cdecl, importc: "Py_AtExit", 
   dynlib: dllname.} #-
 #Py_Cleanup:procedure; cdecl, importc, dynlib: dllname;
 #-
-proc pyCompileString*(s1, s2: cstring, i: int): PyObjectPtr{.cdecl, 
+proc compileString*(s1, s2: cstring, i: int): PyObjectPtr{.cdecl, 
   importc: "Py_CompileString", dynlib: dllname.} #-
-proc pyFatalError*(s: cstring){.cdecl, importc: "Py_FatalError", 
+proc fatalError*(s: cstring){.cdecl, importc: "Py_FatalError", 
   dynlib: dllname.} #-
-proc pyFindMethod*(md: PyMethodDefPtr, ob: PyObjectPtr, 
+proc findMethod*(md: PyMethodDefPtr, ob: PyObjectPtr, 
                    key: cstring): PyObjectPtr{.cdecl, importc: "Py_FindMethod", 
                    dynlib: dllname.} #-
-proc pyFindMethodInChain*(mc: PyMethodChainPtr, ob: PyObjectPtr, 
+proc findMethodInChain*(mc: PyMethodChainPtr, ob: PyObjectPtr, 
                           key: cstring): PyObjectPtr{.cdecl, 
                           importc: "Py_FindMethodInChain", dynlib: dllname.}                 #-
-proc pyFlushLine*(){.cdecl, importc: "Py_FlushLine", 
+proc flushLine*(){.cdecl, importc: "Py_FlushLine", 
   dynlib: dllname.} #+
-proc pyFinalize*(){.cdecl, importc: "Py_Finalize", 
+proc finalize*(){.cdecl, importc: "Py_Finalize", 
   dynlib: dllname.} #-
-proc pyErrExceptionMatches*(exc: PyObjectPtr): int{.cdecl, 
+proc errExceptionMatches*(exc: PyObjectPtr): int{.cdecl, 
   importc: "PyErr_ExceptionMatches", dynlib: dllname.} #-
-proc pyErrGivenExceptionMatches*(raised_exc, exc: PyObjectPtr): int{.cdecl, 
+proc errGivenExceptionMatches*(raised_exc, exc: PyObjectPtr): int{.cdecl, 
   importc: "PyErr_GivenExceptionMatches", dynlib: dllname.} #-
-proc pyEvalEvalCode*(co: PyCodeObjectPtr, 
+proc evalEvalCode*(co: PyCodeObjectPtr, 
                      globals, locals: PyObjectPtr): PyObjectPtr{.cdecl, 
                      importc: "PyEval_EvalCode", dynlib: dllname.} #+
-proc pyGetVersion*(): cstring{.cdecl, importc: "Py_GetVersion", 
+proc getVersion*(): cstring{.cdecl, importc: "Py_GetVersion", 
   dynlib: dllname.} #+
-proc pyGetCopyright*(): cstring{.cdecl, importc: "Py_GetCopyright", 
+proc getCopyright*(): cstring{.cdecl, importc: "Py_GetCopyright", 
   dynlib: dllname.} #+
-proc pyGetExecPrefix*(): cstring{.cdecl, importc: "Py_GetExecPrefix", 
+proc getExecPrefix*(): cstring{.cdecl, importc: "Py_GetExecPrefix", 
   dynlib: dllname.} #+
-proc pyGetPath*(): cstring{.cdecl, importc: "Py_GetPath", 
+proc getPath*(): cstring{.cdecl, importc: "Py_GetPath", 
   dynlib: dllname.} #+
-proc pyGetPrefix*(): cstring{.cdecl, importc: "Py_GetPrefix", 
+proc getPrefix*(): cstring{.cdecl, importc: "Py_GetPrefix", 
   dynlib: dllname.} #+
-proc pyGetProgramName*(): cstring{.cdecl, importc: "Py_GetProgramName", 
+proc getProgramName*(): cstring{.cdecl, importc: "Py_GetProgramName", 
   dynlib: dllname.} #-
-proc pyParserSimpleParseString*(str: cstring, start: int): NodePtr{.cdecl, 
+proc parserSimpleParseString*(str: cstring, start: int): NodePtr{.cdecl, 
   importc: "PyParser_SimpleParseString", dynlib: dllname.} #-
-proc pyNodeFree*(n: NodePtr){.cdecl, importc: "PyNode_Free", 
+proc nodeFree*(n: NodePtr){.cdecl, importc: "PyNode_Free", 
   dynlib: dllname.} #-
-proc pyErrNewException*(name: cstring, base, dict: PyObjectPtr): PyObjectPtr{.cdecl,
+proc errNewException*(name: cstring, base, dict: PyObjectPtr): PyObjectPtr{.cdecl,
    importc: "PyErr_NewException", dynlib: dllname.} #-
-proc pyMalloc*(size: int): pointer {.cdecl, importc: "Py_Malloc", 
+proc malloc*(size: int): pointer {.cdecl, importc: "Py_Malloc", 
   dynlib: dllname.}
-proc pyMemMalloc*(size: int): pointer {.cdecl, importc: "PyMem_Malloc", 
+proc memMalloc*(size: int): pointer {.cdecl, importc: "PyMem_Malloc", 
   dynlib: dllname.}
-proc pyObjectCallMethod*(obj: PyObjectPtr, theMethod, 
+proc objectCallMethod*(obj: PyObjectPtr, theMethod, 
                          format: cstring): PyObjectPtr{.cdecl, 
                          importc: "PyObject_CallMethod", dynlib: dllname.}
-proc pySetProgramName*(name: cstring){.cdecl, importc: "Py_SetProgramName", 
+proc setProgramName*(name: cstring){.cdecl, importc: "Py_SetProgramName", 
   dynlib: dllname.}
-proc pyIsInitialized*(): int{.cdecl, importc: "Py_IsInitialized", 
+proc isInitialized*(): int{.cdecl, importc: "Py_IsInitialized", 
   dynlib: dllname.}
-proc pyGetProgramFullPath*(): cstring{.cdecl, importc: "Py_GetProgramFullPath", 
+proc getProgramFullPath*(): cstring{.cdecl, importc: "Py_GetProgramFullPath", 
   dynlib: dllname.}
-proc pyNewInterpreter*(): PyThreadStatePtr{.cdecl, 
+proc newInterpreter*(): PyThreadStatePtr{.cdecl, 
   importc: "Py_NewInterpreter", dynlib: dllname.}
-proc pyEndInterpreter*(tstate: PyThreadStatePtr){.cdecl, 
+proc endInterpreter*(tstate: PyThreadStatePtr){.cdecl, 
   importc: "Py_EndInterpreter", dynlib: dllname.}
-proc pyEvalAcquireLock*(){.cdecl, importc: "PyEval_AcquireLock", 
+proc evalAcquireLock*(){.cdecl, importc: "PyEval_AcquireLock", 
   dynlib: dllname.}
-proc pyEvalReleaseLock*(){.cdecl, importc: "PyEval_ReleaseLock", 
+proc evalReleaseLock*(){.cdecl, importc: "PyEval_ReleaseLock", 
   dynlib: dllname.}
-proc pyEvalAcquireThread*(tstate: PyThreadStatePtr){.cdecl, 
+proc evalAcquireThread*(tstate: PyThreadStatePtr){.cdecl, 
   importc: "PyEval_AcquireThread", dynlib: dllname.}
-proc pyEvalReleaseThread*(tstate: PyThreadStatePtr){.cdecl, 
+proc evalReleaseThread*(tstate: PyThreadStatePtr){.cdecl, 
   importc: "PyEval_ReleaseThread", dynlib: dllname.}
-proc pyInterpreterstateNew*(): PyInterpreterStatePtr{.cdecl, 
+proc interpreterstateNew*(): PyInterpreterStatePtr{.cdecl, 
   importc: "PyInterpreterState_New", dynlib: dllname.}
-proc pyInterpreterstateClear*(interp: PyInterpreterStatePtr){.cdecl, 
+proc interpreterstateClear*(interp: PyInterpreterStatePtr){.cdecl, 
   importc: "PyInterpreterState_Clear", dynlib: dllname.}
-proc pyInterpreterstateDelete*(interp: PyInterpreterStatePtr){.cdecl, 
+proc interpreterstateDelete*(interp: PyInterpreterStatePtr){.cdecl, 
   importc: "PyInterpreterState_Delete", dynlib: dllname.}
-proc pyThreadStateNew*(interp: PyInterpreterStatePtr): PyThreadStatePtr{.cdecl, 
+proc threadStateNew*(interp: PyInterpreterStatePtr): PyThreadStatePtr{.cdecl, 
   importc: "PyThreadState_New", dynlib: dllname.}
-proc pyThreadStateClear*(tstate: PyThreadStatePtr){.cdecl, 
+proc threadStateClear*(tstate: PyThreadStatePtr){.cdecl, 
   importc: "PyThreadState_Clear", dynlib: dllname.}
-proc pyThreadStateDelete*(tstate: PyThreadStatePtr){.cdecl, 
+proc threadStateDelete*(tstate: PyThreadStatePtr){.cdecl, 
   importc: "PyThreadState_Delete", dynlib: dllname.}
-proc pyThreadStateGet*(): PyThreadStatePtr{.cdecl, 
+proc threadStateGet*(): PyThreadStatePtr{.cdecl, 
   importc: "PyThreadState_Get", dynlib: dllname.}
-proc pyThreadStateSwap*(tstate: PyThreadStatePtr): PyThreadStatePtr{.cdecl, 
+proc threadStateSwap*(tstate: PyThreadStatePtr): PyThreadStatePtr{.cdecl, 
   importc: "PyThreadState_Swap", dynlib: dllname.} 
-{.deprecated: [PyComplex_FromCComplex: pyComplexFromCComplex].}
-{.deprecated: [PyComplex_FromDoubles: pyComplexFromDoubles].}
-{.deprecated: [PyComplex_RealAsDouble: pyComplexRealAsDouble].}
-{.deprecated: [PyComplex_ImagAsDouble: pyComplexImagAsDouble].}
-{.deprecated: [PyComplex_AsCComplex: pyComplexAsCComplex].}
-{.deprecated: [PyCFunction_GetFunction: pyCfunctionGetFunction].}
-{.deprecated: [PyCFunction_GetSelf: pyCfunctionGetSelf].}
-{.deprecated: [PyCallable_Check: pyCallableCheck].}
-{.deprecated: [PyCObject_FromVoidPtr: pyCobjectFromVoidPtr].}
-{.deprecated: [PyCObject_AsVoidPtr: pyCobjectAsVoidPtr].}
-{.deprecated: [PyClass_New: pyClassNew].}
-{.deprecated: [PyClass_IsSubclass: pyClassIsSubclass].}
-{.deprecated: [Py_InitModule4: pyInitModule4].}
-{.deprecated: [PyErr_BadArgument: pyErrBadArgument].}
-{.deprecated: [PyErr_BadInternalCall: pyErrBadInternalCall].}
-{.deprecated: [PyErr_CheckSignals: pyErrCheckSignals].}
-{.deprecated: [PyErr_Clear: pyErrClear].}
-{.deprecated: [PyErr_Fetch: pyErrFetch].}
-{.deprecated: [PyErr_NoMemory: pyErrNoMemory].}
-{.deprecated: [PyErr_Occurred: pyErrOccurred].}
-{.deprecated: [PyErr_Print: pyErrPrint].}
-{.deprecated: [PyErr_Restore: pyErrRestore].}
-{.deprecated: [PyErr_SetFromErrno: pyErrSetFromErrno].}
-{.deprecated: [PyErr_SetNone: pyErrSetNone].}
-{.deprecated: [PyErr_SetObject: pyErrSetObject].}
-{.deprecated: [PyErr_SetString: pyErrSetString].}
-{.deprecated: [PyImport_GetModuleDict: pyImportGetModuleDict].}
-{.deprecated: [PyInt_FromLong: pyIntFromLong].}
-{.deprecated: [Py_Initialize: pyInitialize].}
-{.deprecated: [Py_Exit: pyExit].}
-{.deprecated: [PyEval_GetBuiltins: pyEvalGetBuiltins].}
-{.deprecated: [PyDict_GetItem: pyDictGetItem].}
-{.deprecated: [PyDict_SetItem: pyDictSetItem].}
-{.deprecated: [PyDict_DelItem: pyDictDelItem].}
-{.deprecated: [PyDict_Clear: pyDictClear].}
-{.deprecated: [PyDict_Next: pyDictNext].}
-{.deprecated: [PyDict_Keys: pyDictKeys].}
-{.deprecated: [PyDict_Values: pyDictValues].}
-{.deprecated: [PyDict_Items: pyDictItems].}
-{.deprecated: [PyDict_Size: pyDictSize].}
-{.deprecated: [PyDict_DelItemString: pyDictDelItemString].}
-{.deprecated: [PyDict_New: pyDictNew].}
-{.deprecated: [PyDict_GetItemString: pyDictGetItemString].}
-{.deprecated: [PyDict_SetItemString: pyDictSetItemString].}
-{.deprecated: [PyDictProxy_New: pyDictproxyNew].}
-{.deprecated: [PyModule_GetDict: pyModuleGetDict].}
-{.deprecated: [PyObject_Str: pyObjectStr].}
-{.deprecated: [PyRun_String: pyRunString].}
-{.deprecated: [PyRun_SimpleString: pyRunSimpleString].}
-{.deprecated: [PyString_AsString: pyStringAsString].}
-{.deprecated: [PyString_FromString: pyStringFromString].}
-{.deprecated: [PySys_SetArgv: pySysSetArgv].}
-{.deprecated: [PyCFunction_New: pyCfunctionNew].}
-{.deprecated: [PyEval_CallObject: pyEvalCallObject].}
-{.deprecated: [PyEval_CallObjectWithKeywords: pyEvalCallObjectWithKeywords].}
-{.deprecated: [PyEval_GetFrame: pyEvalGetFrame].}
-{.deprecated: [PyEval_GetGlobals: pyEvalGetGlobals].}
-{.deprecated: [PyEval_GetLocals: pyEvalGetLocals].}
-{.deprecated: [PyEval_GetOwner: pyEvalGetOwner].}
-{.deprecated: [PyEval_GetRestricted: pyEvalGetRestricted].}
-{.deprecated: [PyEval_InitThreads: pyEvalInitThreads].}
-{.deprecated: [PyEval_RestoreThread: pyEvalRestoreThread].}
-{.deprecated: [PyEval_SaveThread: pyEvalSaveThread].}
-{.deprecated: [PyFile_FromString: pyFileFromString].}
-{.deprecated: [PyFile_GetLine: pyFileGetLine].}
-{.deprecated: [PyFile_Name: pyFileName].}
-{.deprecated: [PyFile_SetBufSize: pyFileSetBufSize].}
-{.deprecated: [PyFile_SoftSpace: pyFileSoftSpace].}
-{.deprecated: [PyFile_WriteObject: pyFileWriteObject].}
-{.deprecated: [PyFile_WriteString: pyFileWriteString].}
-{.deprecated: [PyFloat_AsDouble: pyFloatAsDouble].}
-{.deprecated: [PyFloat_FromDouble: pyFloatFromDouble].}
-{.deprecated: [PyFunction_GetCode: pyFunctionGetCode].}
-{.deprecated: [PyFunction_GetGlobals: pyFunctionGetGlobals].}
-{.deprecated: [PyFunction_New: pyFunctionNew].}
-{.deprecated: [PyImport_AddModule: pyImportAddModule].}
-{.deprecated: [PyImport_Cleanup: pyImportCleanup].}
-{.deprecated: [PyImport_GetMagicNumber: pyImportGetMagicNumber].}
-{.deprecated: [PyImport_ImportFrozenModule: pyImportImportFrozenModule].}
-{.deprecated: [PyImport_ImportModule: pyImportImportModule].}
-{.deprecated: [PyImport_Import: pyImportImport].}
-{.deprecated: [PyImport_Init: pyImportInit].}
-{.deprecated: [PyImport_ReloadModule: pyImportReloadModule].}
-{.deprecated: [PyInstance_New: pyInstanceNew].}
-{.deprecated: [PyInt_AsLong: pyIntAsLong].}
-{.deprecated: [PyList_Append: pyListAppend].}
-{.deprecated: [PyList_AsTuple: pyListAsTuple].}
-{.deprecated: [PyList_GetItem: pyListGetItem].}
-{.deprecated: [PyList_GetSlice: pyListGetSlice].}
-{.deprecated: [PyList_Insert: pyListInsert].}
-{.deprecated: [PyList_New: pyListNew].}
-{.deprecated: [PyList_Reverse: pyListReverse].}
-{.deprecated: [PyList_SetItem: pyListSetItem].}
-{.deprecated: [PyList_SetSlice: pyListSetSlice].}
-{.deprecated: [PyList_Size: pyListSize].}
-{.deprecated: [PyList_Sort: pyListSort].}
-{.deprecated: [PyLong_AsDouble: pyLongAsDouble].}
-{.deprecated: [PyLong_AsLong: pyLongAsLong].}
-{.deprecated: [PyLong_FromDouble: pyLongFromDouble].}
-{.deprecated: [PyLong_FromLong: pyLongFromLong].}
-{.deprecated: [PyLong_FromString: pyLongFromString].}
-{.deprecated: [PyLong_FromUnsignedLong: pyLongFromUnsignedLong].}
-{.deprecated: [PyLong_AsUnsignedLong: pyLongAsUnsignedLong].}
-{.deprecated: [PyLong_FromUnicode: pyLongFromUnicode].}
-{.deprecated: [PyLong_FromLongLong: pyLongFromLongLong].}
-{.deprecated: [PyLong_AsLongLong: pyLongAsLongLong].}
-{.deprecated: [PyMapping_Check: pyMappingCheck].}
-{.deprecated: [PyMapping_GetItemString: pyMappingGetItemString].}
-{.deprecated: [PyMapping_HasKey: pyMappingHasKey].}
-{.deprecated: [PyMapping_HasKeyString: pyMappingHasKeyString].}
-{.deprecated: [PyMapping_Length: pyMappingLength].}
-{.deprecated: [PyMapping_SetItemString: pyMappingSetItemString].}
-{.deprecated: [PyMethod_Class: pyMethodClass].}
-{.deprecated: [PyMethod_Function: pyMethodFunction].}
-{.deprecated: [PyMethod_New: pyMethodNew].}
-{.deprecated: [PyMethod_Self: pyMethodSelf].}
-{.deprecated: [PyModule_GetName: pyModuleGetName].}
-{.deprecated: [PyModule_New: pyModuleNew].}
-{.deprecated: [PyNumber_Absolute: pyNumberAbsolute].}
-{.deprecated: [PyNumber_Add: pyNumberAdd].}
-{.deprecated: [PyNumber_And: pyNumberAnd].}
-{.deprecated: [PyNumber_Check: pyNumberCheck].}
-{.deprecated: [PyNumber_Coerce: pyNumberCoerce].}
-{.deprecated: [PyNumber_Divide: pyNumberDivide].}
-{.deprecated: [PyNumber_FloorDivide: pyNumberFloorDivide].}
-{.deprecated: [PyNumber_TrueDivide: pyNumberTrueDivide].}
-{.deprecated: [PyNumber_Divmod: pyNumberDivmod].}
-{.deprecated: [PyNumber_Float: pyNumberFloat].}
-{.deprecated: [PyNumber_Int: pyNumberInt].}
-{.deprecated: [PyNumber_Invert: pyNumberInvert].}
-{.deprecated: [PyNumber_Long: pyNumberLong].}
-{.deprecated: [PyNumber_Lshift: pyNumberLshift].}
-{.deprecated: [PyNumber_Multiply: pyNumberMultiply].}
-{.deprecated: [PyNumber_Negative: pyNumberNegative].}
-{.deprecated: [PyNumber_Or: pyNumberOr].}
-{.deprecated: [PyNumber_Positive: pyNumberPositive].}
-{.deprecated: [PyNumber_Power: pyNumberPower].}
-{.deprecated: [PyNumber_Remainder: pyNumberRemainder].}
-{.deprecated: [PyNumber_Rshift: pyNumberRshift].}
-{.deprecated: [PyNumber_Subtract: pyNumberSubtract].}
-{.deprecated: [PyNumber_Xor: pyNumberXor].}
-{.deprecated: [PyOS_InitInterrupts: pyOsInitInterrupts].}
-{.deprecated: [PyOS_InterruptOccurred: pyOsInterruptOccurred].}
-{.deprecated: [PyObject_CallObject: pyObjectCallObject].}
-{.deprecated: [PyObject_Compare: pyObjectCompare].}
-{.deprecated: [PyObject_GetAttr: pyObjectGetAttr].}
-{.deprecated: [PyObject_GetAttrString: pyObjectGetAttrString].}
-{.deprecated: [PyObject_GetItem: pyObjectGetItem].}
-{.deprecated: [PyObject_DelItem: pyObjectDelItem].}
-{.deprecated: [PyObject_HasAttrString: pyObjectHasAttrString].}
-{.deprecated: [PyObject_Hash: pyObjectHash].}
-{.deprecated: [PyObject_IsTrue: pyObjectIsTrue].}
-{.deprecated: [PyObject_Length: pyObjectLength].}
-{.deprecated: [PyObject_Repr: pyObjectRepr].}
-{.deprecated: [PyObject_SetAttr: pyObjectSetAttr].}
-{.deprecated: [PyObject_SetAttrString: pyObjectSetAttrString].}
-{.deprecated: [PyObject_SetItem: pyObjectSetItem].}
-{.deprecated: [PyObject_Init: pyObjectInit].}
-{.deprecated: [PyObject_InitVar: pyObjectInitVar].}
-{.deprecated: [PyObject_New: pyObjectNew].}
-{.deprecated: [PyObject_NewVar: pyObjectNewVar].}
-{.deprecated: [PyObject_Free: pyObjectFree].}
-{.deprecated: [PyObject_IsInstance: pyObjectIsInstance].}
-{.deprecated: [PyObject_IsSubclass: pyObjectIsSubclass].}
-{.deprecated: [PyObject_GenericGetAttr: pyObjectGenericGetAttr].}
-{.deprecated: [PyObject_GenericSetAttr: pyObjectGenericSetAttr].}
-{.deprecated: [PyObject_GC_Malloc: pyObjectGCMalloc].}
-{.deprecated: [PyObject_GC_New: pyObjectGCNew].}
-{.deprecated: [PyObject_GC_NewVar: pyObjectGCNewVar].}
-{.deprecated: [PyObject_GC_Resize: pyObjectGCResize].}
-{.deprecated: [PyObject_GC_Del: pyObjectGCDel].}
-{.deprecated: [PyObject_GC_Track: pyObjectGCTrack].}
-{.deprecated: [PyObject_GC_UnTrack: pyObjectGCUnTrack].}
-{.deprecated: [PyRange_New: pyRangeNew].}
-{.deprecated: [PySequence_Check: pySequenceCheck].}
-{.deprecated: [PySequence_Concat: pySequenceConcat].}
-{.deprecated: [PySequence_Count: pySequenceCount].}
-{.deprecated: [PySequence_GetItem: pySequenceGetItem].}
-{.deprecated: [PySequence_GetSlice: pySequenceGetSlice].}
-{.deprecated: [PySequence_In: pySequenceIn].}
-{.deprecated: [PySequence_Index: pySequenceIndex].}
-{.deprecated: [PySequence_Length: pySequenceLength].}
-{.deprecated: [PySequence_Repeat: pySequenceRepeat].}
-{.deprecated: [PySequence_SetItem: pySequenceSetItem].}
-{.deprecated: [PySequence_SetSlice: pySequenceSetSlice].}
-{.deprecated: [PySequence_DelSlice: pySequenceDelSlice].}
-{.deprecated: [PySequence_Tuple: pySequenceTuple].}
-{.deprecated: [PySequence_Contains: pySequenceContains].}
-{.deprecated: [PySlice_GetIndices: pySliceGetIndices].}
-{.deprecated: [PySlice_GetIndicesEx: pySliceGetIndicesEx].}
-{.deprecated: [PySlice_New: pySliceNew].}
-{.deprecated: [PyString_Concat: pyStringConcat].}
-{.deprecated: [PyString_ConcatAndDel: pyStringConcatAndDel].}
-{.deprecated: [PyString_Format: pyStringFormat].}
-{.deprecated: [PyString_FromStringAndSize: pyStringFromStringAndSize].}
-{.deprecated: [PyString_Size: pyStringSize].}
-{.deprecated: [PyString_DecodeEscape: pyStringDecodeEscape].}
-{.deprecated: [PyString_Repr: pyStringRepr].}
-{.deprecated: [PySys_GetObject: pySysGetObject].}
-{.deprecated: [PySys_SetObject: pySysSetObject].}
-{.deprecated: [PySys_SetPath: pySysSetPath].}
-{.deprecated: [PyTraceBack_Here: pyTracebackHere].}
-{.deprecated: [PyTraceBack_Print: pyTracebackPrint].}
-{.deprecated: [PyTuple_GetItem: pyTupleGetItem].}
-{.deprecated: [PyTuple_GetSlice: pyTupleGetSlice].}
-{.deprecated: [PyTuple_New: pyTupleNew].}
-{.deprecated: [PyTuple_SetItem: pyTupleSetItem].}
-{.deprecated: [PyTuple_Size: pyTupleSize].}
-{.deprecated: [PyType_IsSubtype: pyTypeIsSubtype].}
-{.deprecated: [PyType_GenericAlloc: pyTypeGenericAlloc].}
-{.deprecated: [PyType_GenericNew: pyTypeGenericNew].}
-{.deprecated: [PyType_Ready: pyTypeReady].}
-{.deprecated: [PyUnicode_FromWideChar: pyUnicodeFromWideChar].}
-{.deprecated: [PyUnicode_AsWideChar: pyUnicodeAsWideChar].}
-{.deprecated: [PyUnicode_FromOrdinal: pyUnicodeFromOrdinal].}
-{.deprecated: [PyWeakref_GetObject: pyWeakrefGetObject].}
-{.deprecated: [PyWeakref_NewProxy: pyWeakrefNewProxy].}
-{.deprecated: [PyWeakref_NewRef: pyWeakrefNewRef].}
-{.deprecated: [PyWrapper_New: pyWrapperNew].}
-{.deprecated: [PyBool_FromLong: pyBoolFromLong].}
-{.deprecated: [Py_AtExit: pyAtExit].}
-{.deprecated: [Py_CompileString: pyCompileString].}
-{.deprecated: [Py_FatalError: pyFatalError].}
-{.deprecated: [Py_FindMethod: pyFindMethod].}
-{.deprecated: [Py_FindMethodInChain: pyFindMethodInChain].}
-{.deprecated: [Py_FlushLine: pyFlushLine].}
-{.deprecated: [Py_Finalize: pyFinalize].}
-{.deprecated: [PyErr_ExceptionMatches: pyErrExceptionMatches].}
-{.deprecated: [PyErr_GivenExceptionMatches: pyErrGivenExceptionMatches].}
-{.deprecated: [PyEval_EvalCode: pyEvalEvalCode].}
-{.deprecated: [Py_GetVersion: pyGetVersion].}
-{.deprecated: [Py_GetCopyright: pyGetCopyright].}
-{.deprecated: [Py_GetExecPrefix: pyGetExecPrefix].}
-{.deprecated: [Py_GetPath: pyGetPath].}
-{.deprecated: [Py_GetPrefix: pyGetPrefix].}
-{.deprecated: [Py_GetProgramName: pyGetProgramName].}
-{.deprecated: [PyParser_SimpleParseString: pyParserSimpleParseString].}
-{.deprecated: [PyNode_Free: pyNodeFree].}
-{.deprecated: [PyErr_NewException: pyErrNewException].}
-{.deprecated: [Py_Malloc: pyMalloc].}
-{.deprecated: [PyMem_Malloc: pyMemMalloc].}
-{.deprecated: [PyObject_CallMethod: pyObjectCallMethod].}
-{.deprecated: [Py_SetProgramName: pySetProgramName].}
-{.deprecated: [Py_IsInitialized: pyIsInitialized].}
-{.deprecated: [Py_GetProgramFullPath: pyGetProgramFullPath].}
-{.deprecated: [Py_NewInterpreter: pyNewInterpreter].}
-{.deprecated: [Py_EndInterpreter: pyEndInterpreter].}
-{.deprecated: [PyEval_AcquireLock: pyEvalAcquireLock].}
-{.deprecated: [PyEval_ReleaseLock: pyEvalReleaseLock].}
-{.deprecated: [PyEval_AcquireThread: pyEvalAcquireThread].}
-{.deprecated: [PyEval_ReleaseThread: pyEvalReleaseThread].}
-{.deprecated: [PyInterpreterState_New: pyInterpreterstateNew].}
-{.deprecated: [PyInterpreterState_Clear: pyInterpreterstateClear].}
-{.deprecated: [PyInterpreterState_Delete: pyInterpreterstateDelete].}
-{.deprecated: [PyThreadState_New: pyThreadStateNew].}
-{.deprecated: [PyThreadState_Clear: pyThreadStateClear].}
-{.deprecated: [PyThreadState_Delete: pyThreadStateDelete].}
-{.deprecated: [PyThreadState_Get: pyThreadStateGet].}
-{.deprecated: [PyThreadState_Swap: pyThreadStateSwap].}
+{.deprecated: [PyComplex_FromCComplex: complexFromCComplex].}
+{.deprecated: [PyComplex_FromDoubles: complexFromDoubles].}
+{.deprecated: [PyComplex_RealAsDouble: complexRealAsDouble].}
+{.deprecated: [PyComplex_ImagAsDouble: complexImagAsDouble].}
+{.deprecated: [PyComplex_AsCComplex: complexAsCComplex].}
+{.deprecated: [PyCFunction_GetFunction: cfunctionGetFunction].}
+{.deprecated: [PyCFunction_GetSelf: cfunctionGetSelf].}
+{.deprecated: [PyCallable_Check: callableCheck].}
+{.deprecated: [PyCObject_FromVoidPtr: cobjectFromVoidPtr].}
+{.deprecated: [PyCObject_AsVoidPtr: cobjectAsVoidPtr].}
+{.deprecated: [PyClass_New: classNew].}
+{.deprecated: [PyClass_IsSubclass: classIsSubclass].}
+{.deprecated: [Py_InitModule4: initModule4].}
+{.deprecated: [PyErr_BadArgument: errBadArgument].}
+{.deprecated: [PyErr_BadInternalCall: errBadInternalCall].}
+{.deprecated: [PyErr_CheckSignals: errCheckSignals].}
+{.deprecated: [PyErr_Clear: errClear].}
+{.deprecated: [PyErr_Fetch: errFetch].}
+{.deprecated: [PyErr_NoMemory: errNoMemory].}
+{.deprecated: [PyErr_Occurred: errOccurred].}
+{.deprecated: [PyErr_Print: errPrint].}
+{.deprecated: [PyErr_Restore: errRestore].}
+{.deprecated: [PyErr_SetFromErrno: errSetFromErrno].}
+{.deprecated: [PyErr_SetNone: errSetNone].}
+{.deprecated: [PyErr_SetObject: errSetObject].}
+{.deprecated: [PyErr_SetString: errSetString].}
+{.deprecated: [PyImport_GetModuleDict: importGetModuleDict].}
+{.deprecated: [PyInt_FromLong: intFromLong].}
+{.deprecated: [Py_Initialize: initialize].}
+{.deprecated: [Py_Exit: exit].}
+{.deprecated: [PyEval_GetBuiltins: evalGetBuiltins].}
+{.deprecated: [PyDict_GetItem: dictGetItem].}
+{.deprecated: [PyDict_SetItem: dictSetItem].}
+{.deprecated: [PyDict_DelItem: dictDelItem].}
+{.deprecated: [PyDict_Clear: dictClear].}
+{.deprecated: [PyDict_Next: dictNext].}
+{.deprecated: [PyDict_Keys: dictKeys].}
+{.deprecated: [PyDict_Values: dictValues].}
+{.deprecated: [PyDict_Items: dictItems].}
+{.deprecated: [PyDict_Size: dictSize].}
+{.deprecated: [PyDict_DelItemString: dictDelItemString].}
+{.deprecated: [PyDict_New: dictNew].}
+{.deprecated: [PyDict_GetItemString: dictGetItemString].}
+{.deprecated: [PyDict_SetItemString: dictSetItemString].}
+{.deprecated: [PyDictProxy_New: dictproxyNew].}
+{.deprecated: [PyModule_GetDict: moduleGetDict].}
+{.deprecated: [PyObject_Str: objectStr].}
+{.deprecated: [PyRun_String: runString].}
+{.deprecated: [PyRun_SimpleString: runSimpleString].}
+{.deprecated: [PyString_AsString: stringAsString].}
+{.deprecated: [PyString_FromString: stringFromString].}
+{.deprecated: [PySys_SetArgv: sysSetArgv].}
+{.deprecated: [PyCFunction_New: cfunctionNew].}
+{.deprecated: [PyEval_CallObject: evalCallObject].}
+{.deprecated: [PyEval_CallObjectWithKeywords: evalCallObjectWithKeywords].}
+{.deprecated: [PyEval_GetFrame: evalGetFrame].}
+{.deprecated: [PyEval_GetGlobals: evalGetGlobals].}
+{.deprecated: [PyEval_GetLocals: evalGetLocals].}
+{.deprecated: [PyEval_GetOwner: evalGetOwner].}
+{.deprecated: [PyEval_GetRestricted: evalGetRestricted].}
+{.deprecated: [PyEval_InitThreads: evalInitThreads].}
+{.deprecated: [PyEval_RestoreThread: evalRestoreThread].}
+{.deprecated: [PyEval_SaveThread: evalSaveThread].}
+{.deprecated: [PyFile_FromString: fileFromString].}
+{.deprecated: [PyFile_GetLine: fileGetLine].}
+{.deprecated: [PyFile_Name: fileName].}
+{.deprecated: [PyFile_SetBufSize: fileSetBufSize].}
+{.deprecated: [PyFile_SoftSpace: fileSoftSpace].}
+{.deprecated: [PyFile_WriteObject: fileWriteObject].}
+{.deprecated: [PyFile_WriteString: fileWriteString].}
+{.deprecated: [PyFloat_AsDouble: floatAsDouble].}
+{.deprecated: [PyFloat_FromDouble: floatFromDouble].}
+{.deprecated: [PyFunction_GetCode: functionGetCode].}
+{.deprecated: [PyFunction_GetGlobals: functionGetGlobals].}
+{.deprecated: [PyFunction_New: functionNew].}
+{.deprecated: [PyImport_AddModule: importAddModule].}
+{.deprecated: [PyImport_Cleanup: importCleanup].}
+{.deprecated: [PyImport_GetMagicNumber: importGetMagicNumber].}
+{.deprecated: [PyImport_ImportFrozenModule: importImportFrozenModule].}
+{.deprecated: [PyImport_ImportModule: importImportModule].}
+{.deprecated: [PyImport_Import: importImport].}
+{.deprecated: [PyImport_Init: importInit].}
+{.deprecated: [PyImport_ReloadModule: importReloadModule].}
+{.deprecated: [PyInstance_New: instanceNew].}
+{.deprecated: [PyInt_AsLong: intAsLong].}
+{.deprecated: [PyList_Append: listAppend].}
+{.deprecated: [PyList_AsTuple: listAsTuple].}
+{.deprecated: [PyList_GetItem: listGetItem].}
+{.deprecated: [PyList_GetSlice: listGetSlice].}
+{.deprecated: [PyList_Insert: listInsert].}
+{.deprecated: [PyList_New: listNew].}
+{.deprecated: [PyList_Reverse: listReverse].}
+{.deprecated: [PyList_SetItem: listSetItem].}
+{.deprecated: [PyList_SetSlice: listSetSlice].}
+{.deprecated: [PyList_Size: listSize].}
+{.deprecated: [PyList_Sort: listSort].}
+{.deprecated: [PyLong_AsDouble: longAsDouble].}
+{.deprecated: [PyLong_AsLong: longAsLong].}
+{.deprecated: [PyLong_FromDouble: longFromDouble].}
+{.deprecated: [PyLong_FromLong: longFromLong].}
+{.deprecated: [PyLong_FromString: longFromString].}
+{.deprecated: [PyLong_FromUnsignedLong: longFromUnsignedLong].}
+{.deprecated: [PyLong_AsUnsignedLong: longAsUnsignedLong].}
+{.deprecated: [PyLong_FromUnicode: longFromUnicode].}
+{.deprecated: [PyLong_FromLongLong: longFromLongLong].}
+{.deprecated: [PyLong_AsLongLong: longAsLongLong].}
+{.deprecated: [PyMapping_Check: mappingCheck].}
+{.deprecated: [PyMapping_GetItemString: mappingGetItemString].}
+{.deprecated: [PyMapping_HasKey: mappingHasKey].}
+{.deprecated: [PyMapping_HasKeyString: mappingHasKeyString].}
+{.deprecated: [PyMapping_Length: mappingLength].}
+{.deprecated: [PyMapping_SetItemString: mappingSetItemString].}
+{.deprecated: [PyMethod_Class: methodClass].}
+{.deprecated: [PyMethod_Function: methodFunction].}
+{.deprecated: [PyMethod_New: methodNew].}
+{.deprecated: [PyMethod_Self: methodSelf].}
+{.deprecated: [PyModule_GetName: moduleGetName].}
+{.deprecated: [PyModule_New: moduleNew].}
+{.deprecated: [PyNumber_Absolute: numberAbsolute].}
+{.deprecated: [PyNumber_Add: numberAdd].}
+{.deprecated: [PyNumber_And: numberAnd].}
+{.deprecated: [PyNumber_Check: numberCheck].}
+{.deprecated: [PyNumber_Coerce: numberCoerce].}
+{.deprecated: [PyNumber_Divide: numberDivide].}
+{.deprecated: [PyNumber_FloorDivide: numberFloorDivide].}
+{.deprecated: [PyNumber_TrueDivide: numberTrueDivide].}
+{.deprecated: [PyNumber_Divmod: numberDivmod].}
+{.deprecated: [PyNumber_Float: numberFloat].}
+{.deprecated: [PyNumber_Int: numberInt].}
+{.deprecated: [PyNumber_Invert: numberInvert].}
+{.deprecated: [PyNumber_Long: numberLong].}
+{.deprecated: [PyNumber_Lshift: numberLshift].}
+{.deprecated: [PyNumber_Multiply: numberMultiply].}
+{.deprecated: [PyNumber_Negative: numberNegative].}
+{.deprecated: [PyNumber_Or: numberOr].}
+{.deprecated: [PyNumber_Positive: numberPositive].}
+{.deprecated: [PyNumber_Power: numberPower].}
+{.deprecated: [PyNumber_Remainder: numberRemainder].}
+{.deprecated: [PyNumber_Rshift: numberRshift].}
+{.deprecated: [PyNumber_Subtract: numberSubtract].}
+{.deprecated: [PyNumber_Xor: numberXor].}
+{.deprecated: [PyOS_InitInterrupts: osInitInterrupts].}
+{.deprecated: [PyOS_InterruptOccurred: osInterruptOccurred].}
+{.deprecated: [PyObject_CallObject: objectCallObject].}
+{.deprecated: [PyObject_Compare: objectCompare].}
+{.deprecated: [PyObject_GetAttr: objectGetAttr].}
+{.deprecated: [PyObject_GetAttrString: objectGetAttrString].}
+{.deprecated: [PyObject_GetItem: objectGetItem].}
+{.deprecated: [PyObject_DelItem: objectDelItem].}
+{.deprecated: [PyObject_HasAttrString: objectHasAttrString].}
+{.deprecated: [PyObject_Hash: objectHash].}
+{.deprecated: [PyObject_IsTrue: objectIsTrue].}
+{.deprecated: [PyObject_Length: objectLength].}
+{.deprecated: [PyObject_Repr: objectRepr].}
+{.deprecated: [PyObject_SetAttr: objectSetAttr].}
+{.deprecated: [PyObject_SetAttrString: objectSetAttrString].}
+{.deprecated: [PyObject_SetItem: objectSetItem].}
+{.deprecated: [PyObject_Init: objectInit].}
+{.deprecated: [PyObject_InitVar: objectInitVar].}
+{.deprecated: [PyObject_New: objectNew].}
+{.deprecated: [PyObject_NewVar: objectNewVar].}
+{.deprecated: [PyObject_Free: objectFree].}
+{.deprecated: [PyObject_IsInstance: objectIsInstance].}
+{.deprecated: [PyObject_IsSubclass: objectIsSubclass].}
+{.deprecated: [PyObject_GenericGetAttr: objectGenericGetAttr].}
+{.deprecated: [PyObject_GenericSetAttr: objectGenericSetAttr].}
+{.deprecated: [PyObject_GC_Malloc: objectGCMalloc].}
+{.deprecated: [PyObject_GC_New: objectGCNew].}
+{.deprecated: [PyObject_GC_NewVar: objectGCNewVar].}
+{.deprecated: [PyObject_GC_Resize: objectGCResize].}
+{.deprecated: [PyObject_GC_Del: objectGCDel].}
+{.deprecated: [PyObject_GC_Track: objectGCTrack].}
+{.deprecated: [PyObject_GC_UnTrack: objectGCUnTrack].}
+{.deprecated: [PyRange_New: rangeNew].}
+{.deprecated: [PySequence_Check: sequenceCheck].}
+{.deprecated: [PySequence_Concat: sequenceConcat].}
+{.deprecated: [PySequence_Count: sequenceCount].}
+{.deprecated: [PySequence_GetItem: sequenceGetItem].}
+{.deprecated: [PySequence_GetSlice: sequenceGetSlice].}
+{.deprecated: [PySequence_In: sequenceIn].}
+{.deprecated: [PySequence_Index: sequenceIndex].}
+{.deprecated: [PySequence_Length: sequenceLength].}
+{.deprecated: [PySequence_Repeat: sequenceRepeat].}
+{.deprecated: [PySequence_SetItem: sequenceSetItem].}
+{.deprecated: [PySequence_SetSlice: sequenceSetSlice].}
+{.deprecated: [PySequence_DelSlice: sequenceDelSlice].}
+{.deprecated: [PySequence_Tuple: sequenceTuple].}
+{.deprecated: [PySequence_Contains: sequenceContains].}
+{.deprecated: [PySlice_GetIndices: sliceGetIndices].}
+{.deprecated: [PySlice_GetIndicesEx: sliceGetIndicesEx].}
+{.deprecated: [PySlice_New: sliceNew].}
+{.deprecated: [PyString_Concat: stringConcat].}
+{.deprecated: [PyString_ConcatAndDel: stringConcatAndDel].}
+{.deprecated: [PyString_Format: stringFormat].}
+{.deprecated: [PyString_FromStringAndSize: stringFromStringAndSize].}
+{.deprecated: [PyString_Size: stringSize].}
+{.deprecated: [PyString_DecodeEscape: stringDecodeEscape].}
+{.deprecated: [PyString_Repr: stringRepr].}
+{.deprecated: [PySys_GetObject: sysGetObject].}
+{.deprecated: [PySys_SetObject: sysSetObject].}
+{.deprecated: [PySys_SetPath: sysSetPath].}
+{.deprecated: [PyTraceBack_Here: tracebackHere].}
+{.deprecated: [PyTraceBack_Print: tracebackPrint].}
+{.deprecated: [PyTuple_GetItem: tupleGetItem].}
+{.deprecated: [PyTuple_GetSlice: tupleGetSlice].}
+{.deprecated: [PyTuple_New: tupleNew].}
+{.deprecated: [PyTuple_SetItem: tupleSetItem].}
+{.deprecated: [PyTuple_Size: tupleSize].}
+{.deprecated: [PyType_IsSubtype: typeIsSubtype].}
+{.deprecated: [PyType_GenericAlloc: typeGenericAlloc].}
+{.deprecated: [PyType_GenericNew: typeGenericNew].}
+{.deprecated: [PyType_Ready: typeReady].}
+{.deprecated: [PyUnicode_FromWideChar: unicodeFromWideChar].}
+{.deprecated: [PyUnicode_AsWideChar: unicodeAsWideChar].}
+{.deprecated: [PyUnicode_FromOrdinal: unicodeFromOrdinal].}
+{.deprecated: [PyWeakref_GetObject: weakrefGetObject].}
+{.deprecated: [PyWeakref_NewProxy: weakrefNewProxy].}
+{.deprecated: [PyWeakref_NewRef: weakrefNewRef].}
+{.deprecated: [PyWrapper_New: wrapperNew].}
+{.deprecated: [PyBool_FromLong: boolFromLong].}
+{.deprecated: [Py_AtExit: atExit].}
+{.deprecated: [Py_CompileString: compileString].}
+{.deprecated: [Py_FatalError: fatalError].}
+{.deprecated: [Py_FindMethod: findMethod].}
+{.deprecated: [Py_FindMethodInChain: findMethodInChain].}
+{.deprecated: [Py_FlushLine: flushLine].}
+{.deprecated: [Py_Finalize: finalize].}
+{.deprecated: [PyErr_ExceptionMatches: errExceptionMatches].}
+{.deprecated: [PyErr_GivenExceptionMatches: errGivenExceptionMatches].}
+{.deprecated: [PyEval_EvalCode: evalEvalCode].}
+{.deprecated: [Py_GetVersion: getVersion].}
+{.deprecated: [Py_GetCopyright: getCopyright].}
+{.deprecated: [Py_GetExecPrefix: getExecPrefix].}
+{.deprecated: [Py_GetPath: getPath].}
+{.deprecated: [Py_GetPrefix: getPrefix].}
+{.deprecated: [Py_GetProgramName: getProgramName].}
+{.deprecated: [PyParser_SimpleParseString: parserSimpleParseString].}
+{.deprecated: [PyNode_Free: nodeFree].}
+{.deprecated: [PyErr_NewException: errNewException].}
+{.deprecated: [Py_Malloc: malloc].}
+{.deprecated: [PyMem_Malloc: memMalloc].}
+{.deprecated: [PyObject_CallMethod: objectCallMethod].}
+{.deprecated: [Py_SetProgramName: setProgramName].}
+{.deprecated: [Py_IsInitialized: isInitialized].}
+{.deprecated: [Py_GetProgramFullPath: getProgramFullPath].}
+{.deprecated: [Py_NewInterpreter: newInterpreter].}
+{.deprecated: [Py_EndInterpreter: endInterpreter].}
+{.deprecated: [PyEval_AcquireLock: evalAcquireLock].}
+{.deprecated: [PyEval_ReleaseLock: evalReleaseLock].}
+{.deprecated: [PyEval_AcquireThread: evalAcquireThread].}
+{.deprecated: [PyEval_ReleaseThread: evalReleaseThread].}
+{.deprecated: [PyInterpreterState_New: interpreterstateNew].}
+{.deprecated: [PyInterpreterState_Clear: interpreterstateClear].}
+{.deprecated: [PyInterpreterState_Delete: interpreterstateDelete].}
+{.deprecated: [PyThreadState_New: threadStateNew].}
+{.deprecated: [PyThreadState_Clear: threadStateClear].}
+{.deprecated: [PyThreadState_Delete: threadStateDelete].}
+{.deprecated: [PyThreadState_Get: threadStateGet].}
+{.deprecated: [PyThreadState_Swap: threadStateSwap].}
 
 # Run the interpreter independantly of the Nim application
-proc pyMain*(argc: int, argv: CstringPtr): int{.cdecl, importc: 
+proc main*(argc: int, argv: CstringPtr): int{.cdecl, importc: 
   "Py_Main", dynlib: dllname.}
-{.deprecated: [Py_Main: pyMain].}
+{.deprecated: [Py_Main: main].}
 # Execute a script from a file
-proc pyRunAnyFile*(filename: string): int =
-  result = pyRunSimpleString(readFile(filename))
+proc runAnyFile*(filename: string): int =
+  result = runSimpleString(readFile(filename))
 
 #Further exported Objects, may be implemented later
 #
@@ -2115,361 +2112,361 @@ proc pyRunAnyFile*(filename: string): int =
 # This function handles all cardinals, pointer types (with no adjustment of pointers!)
 # (Extended) floats, which are handled as Python doubles and currencies, handled
 # as (normalized) Python doubles.
-proc pyImportExecCodeModule*(name: string, codeobject: PyObjectPtr): PyObjectPtr
-{.deprecated: [PyImport_ExecCodeModule: pyImportExecCodeModule].}
-proc pyStringCheck*(obj: PyObjectPtr): bool
-{.deprecated: [PyString_Check: pyStringCheck].}
-proc pyStringCheckExact*(obj: PyObjectPtr): bool
-{.deprecated: [PyString_CheckExact: pyStringCheckExact].}
-proc pyFloatCheck*(obj: PyObjectPtr): bool
-{.deprecated: [PyFloat_Check: pyFloatCheck].}
-proc pyFloatCheckExact*(obj: PyObjectPtr): bool
-{.deprecated: [PyFloat_CheckExact: pyFloatCheckExact].}
-proc pyIntCheck*(obj: PyObjectPtr): bool
-{.deprecated: [PyInt_Check: pyIntCheck].}
-proc pyIntCheckExact*(obj: PyObjectPtr): bool
-{.deprecated: [PyInt_CheckExact: pyIntCheckExact].}
-proc pyLongCheck*(obj: PyObjectPtr): bool
-{.deprecated: [PyLong_Check: pyLongCheck].}
-proc pyLongCheckExact*(obj: PyObjectPtr): bool
-{.deprecated: [PyLong_CheckExact: pyLongCheckExact].}
-proc pyTupleCheck*(obj: PyObjectPtr): bool
-{.deprecated: [PyTuple_Check: pyTupleCheck].}
-proc pyTupleCheckExact*(obj: PyObjectPtr): bool
-{.deprecated: [PyTuple_CheckExact: pyTupleCheckExact].}
-proc pyInstanceCheck*(obj: PyObjectPtr): bool
-{.deprecated: [PyInstance_Check: pyInstanceCheck].}
-proc pyClassCheck*(obj: PyObjectPtr): bool
-{.deprecated: [PyClass_Check: pyClassCheck].}
-proc pyMethodCheck*(obj: PyObjectPtr): bool
-{.deprecated: [PyMethod_Check: pyMethodCheck].}
-proc pyListCheck*(obj: PyObjectPtr): bool
-{.deprecated: [PyList_Check: pyListCheck].}
-proc pyListCheckExact*(obj: PyObjectPtr): bool
-{.deprecated: [PyList_CheckExact: pyListCheckExact].}
-proc pyDictCheck*(obj: PyObjectPtr): bool
-{.deprecated: [PyDict_Check: pyDictCheck].}
-proc pyDictCheckExact*(obj: PyObjectPtr): bool
-{.deprecated: [PyDict_CheckExact: pyDictCheckExact].}
-proc pyModuleCheck*(obj: PyObjectPtr): bool
-{.deprecated: [PyModule_Check: pyModuleCheck].}
-proc pyModuleCheckExact*(obj: PyObjectPtr): bool
-{.deprecated: [PyModule_CheckExact: pyModuleCheckExact].}
-proc pySliceCheck*(obj: PyObjectPtr): bool
-{.deprecated: [PySlice_Check: pySliceCheck].}
-proc pyFunctionCheck*(obj: PyObjectPtr): bool
-{.deprecated: [PyFunction_Check: pyFunctionCheck].}
-proc pyUnicodeCheck*(obj: PyObjectPtr): bool
-{.deprecated: [PyUnicode_Check: pyUnicodeCheck].}
-proc pyUnicodeCheckExact*(obj: PyObjectPtr): bool
-{.deprecated: [PyUnicode_CheckExact: pyUnicodeCheckExact].}
-proc pyTypeISGC*(t: PyTypeObjectPtr): bool
-{.deprecated: [PyType_IS_GC: pyTypeISGC].}
-proc pyObjectISGC*(obj: PyObjectPtr): bool
-{.deprecated: [PyObject_IS_GC: pyObjectISGC].}
-proc pyBoolCheck*(obj: PyObjectPtr): bool
-{.deprecated: [PyBool_Check: pyBoolCheck].}
-proc pyBasestringCheck*(obj: PyObjectPtr): bool
-{.deprecated: [PyBaseString_Check: pyBasestringCheck].}
-proc pyEnumCheck*(obj: PyObjectPtr): bool
-{.deprecated: [PyEnum_Check: pyEnumCheck].}
-proc pyObjectTypeCheck*(obj: PyObjectPtr, t: PyTypeObjectPtr): bool
-{.deprecated: [PyObject_TypeCheck: pyObjectTypeCheck].}
-proc pyInitModule*(name: cstring, md: PyMethodDefPtr): PyObjectPtr
-{.deprecated: [Py_InitModule: pyInitModule].}
-proc pyTypeHasFeature*(AType: PyTypeObjectPtr, AFlag: int): bool
-{.deprecated: [PyType_HasFeature: pyTypeHasFeature].}
+proc importExecCodeModule*(name: string, codeobject: PyObjectPtr): PyObjectPtr
+{.deprecated: [PyImport_ExecCodeModule: importExecCodeModule].}
+proc stringCheck*(obj: PyObjectPtr): bool
+{.deprecated: [PyString_Check: stringCheck].}
+proc stringCheckExact*(obj: PyObjectPtr): bool
+{.deprecated: [PyString_CheckExact: stringCheckExact].}
+proc floatCheck*(obj: PyObjectPtr): bool
+{.deprecated: [PyFloat_Check: floatCheck].}
+proc floatCheckExact*(obj: PyObjectPtr): bool
+{.deprecated: [PyFloat_CheckExact: floatCheckExact].}
+proc intCheck*(obj: PyObjectPtr): bool
+{.deprecated: [PyInt_Check: intCheck].}
+proc intCheckExact*(obj: PyObjectPtr): bool
+{.deprecated: [PyInt_CheckExact: intCheckExact].}
+proc longCheck*(obj: PyObjectPtr): bool
+{.deprecated: [PyLong_Check: longCheck].}
+proc longCheckExact*(obj: PyObjectPtr): bool
+{.deprecated: [PyLong_CheckExact: longCheckExact].}
+proc tupleCheck*(obj: PyObjectPtr): bool
+{.deprecated: [PyTuple_Check: tupleCheck].}
+proc tupleCheckExact*(obj: PyObjectPtr): bool
+{.deprecated: [PyTuple_CheckExact: tupleCheckExact].}
+proc instanceCheck*(obj: PyObjectPtr): bool
+{.deprecated: [PyInstance_Check: instanceCheck].}
+proc classCheck*(obj: PyObjectPtr): bool
+{.deprecated: [PyClass_Check: classCheck].}
+proc methodCheck*(obj: PyObjectPtr): bool
+{.deprecated: [PyMethod_Check: methodCheck].}
+proc listCheck*(obj: PyObjectPtr): bool
+{.deprecated: [PyList_Check: listCheck].}
+proc listCheckExact*(obj: PyObjectPtr): bool
+{.deprecated: [PyList_CheckExact: listCheckExact].}
+proc dictCheck*(obj: PyObjectPtr): bool
+{.deprecated: [PyDict_Check: dictCheck].}
+proc dictCheckExact*(obj: PyObjectPtr): bool
+{.deprecated: [PyDict_CheckExact: dictCheckExact].}
+proc moduleCheck*(obj: PyObjectPtr): bool
+{.deprecated: [PyModule_Check: moduleCheck].}
+proc moduleCheckExact*(obj: PyObjectPtr): bool
+{.deprecated: [PyModule_CheckExact: moduleCheckExact].}
+proc sliceCheck*(obj: PyObjectPtr): bool
+{.deprecated: [PySlice_Check: sliceCheck].}
+proc functionCheck*(obj: PyObjectPtr): bool
+{.deprecated: [PyFunction_Check: functionCheck].}
+proc unicodeCheck*(obj: PyObjectPtr): bool
+{.deprecated: [PyUnicode_Check: unicodeCheck].}
+proc unicodeCheckExact*(obj: PyObjectPtr): bool
+{.deprecated: [PyUnicode_CheckExact: unicodeCheckExact].}
+proc typeISGC*(t: PyTypeObjectPtr): bool
+{.deprecated: [PyType_IS_GC: typeISGC].}
+proc objectISGC*(obj: PyObjectPtr): bool
+{.deprecated: [PyObject_IS_GC: objectISGC].}
+proc boolCheck*(obj: PyObjectPtr): bool
+{.deprecated: [PyBool_Check: boolCheck].}
+proc basestringCheck*(obj: PyObjectPtr): bool
+{.deprecated: [PyBaseString_Check: basestringCheck].}
+proc enumCheck*(obj: PyObjectPtr): bool
+{.deprecated: [PyEnum_Check: enumCheck].}
+proc objectTypeCheck*(obj: PyObjectPtr, t: PyTypeObjectPtr): bool
+{.deprecated: [PyObject_TypeCheck: objectTypeCheck].}
+proc initModule*(name: cstring, md: PyMethodDefPtr): PyObjectPtr
+{.deprecated: [Py_InitModule: initModule].}
+proc typeHasFeature*(AType: PyTypeObjectPtr, AFlag: int): bool
+{.deprecated: [PyType_HasFeature: typeHasFeature].}
 
 # implementation
-proc pyIncref*(op: PyObjectPtr) {.inline.} = 
+proc incref*(op: PyObjectPtr) {.inline.} = 
   inc(op.obRefcnt)
-{.deprecated: [Py_INCREF: pyIncref].}
+{.deprecated: [Py_INCREF: incref].}
 
-proc pyDecref*(op: PyObjectPtr) {.inline.} = 
+proc decref*(op: PyObjectPtr) {.inline.} = 
   dec(op.obRefcnt)
   if op.obRefcnt == 0: 
     op.obType.tpDealloc(op)
-{.deprecated: [Py_DECREF: pyDecref].}
+{.deprecated: [Py_DECREF: decref].}
 
-proc pyXIncref*(op: PyObjectPtr) {.inline.} = 
-  if op != nil: pyIncref(op)
-{.deprecated: [Py_XINCREF: pyXIncref].}
+proc xIncref*(op: PyObjectPtr) {.inline.} = 
+  if op != nil: incref(op)
+{.deprecated: [Py_XINCREF: xIncref].}
   
-proc pyXDecref*(op: PyObjectPtr) {.inline.} = 
-  if op != nil: pyDecref(op)
-{.deprecated: [Py_XDECREF: pyXDecref].}
+proc xDecref*(op: PyObjectPtr) {.inline.} = 
+  if op != nil: decref(op)
+{.deprecated: [Py_XDECREF: xDecref].}
   
-proc pyImportExecCodeModule(name: string, codeobject: PyObjectPtr): PyObjectPtr = 
+proc importExecCodeModule(name: string, codeobject: PyObjectPtr): PyObjectPtr = 
   var m, d, v, modules: PyObjectPtr
-  m = pyImportAddModule(cstring(name))
+  m = importAddModule(cstring(name))
   if m == nil: 
     return nil
-  d = pyModuleGetDict(m)
-  if pyDictGetItemString(d, "__builtins__") == nil: 
-    if pyDictSetItemString(d, "__builtins__", pyEvalGetBuiltins()) != 0: 
+  d = moduleGetDict(m)
+  if dictGetItemString(d, "__builtins__") == nil: 
+    if dictSetItemString(d, "__builtins__", evalGetBuiltins()) != 0: 
       return nil
-  if pyDictSetItemString(d, "__file__", 
+  if dictSetItemString(d, "__file__", 
                           PyCodeObjectPtr(codeobject).coFilename) != 0: 
-    pyErrClear() # Not important enough to report
-  v = pyEvalEvalCode(PyCodeObjectPtr(codeobject), d, d) # XXX owner ?
+    errClear() # Not important enough to report
+  v = evalEvalCode(PyCodeObjectPtr(codeobject), d, d) # XXX owner ?
   if v == nil: 
     return nil
-  pyXDecref(v)
-  modules = pyImportGetModuleDict()
-  if pyDictGetItemString(modules, cstring(name)) == nil: 
-    pyErrSetString(pyExcImportError[] , cstring(
+  xDecref(v)
+  modules = importGetModuleDict()
+  if dictGetItemString(modules, cstring(name)) == nil: 
+    errSetString(excImportError[] , cstring(
         "Loaded module " & name & "not found in sys.modules"))
     return nil
-  pyXIncref(m)
+  xIncref(m)
   result = m
 
-proc pyStringCheck(obj: PyObjectPtr): bool = 
-  result = pyObjectTypeCheck(obj, pyStringType)
+proc stringCheck(obj: PyObjectPtr): bool = 
+  result = objectTypeCheck(obj, stringType)
 
-proc pyStringCheckExact(obj: PyObjectPtr): bool = 
-  result = (obj != nil) and (obj.obType == pyStringType)
+proc stringCheckExact(obj: PyObjectPtr): bool = 
+  result = (obj != nil) and (obj.obType == stringType)
 
-proc pyFloatCheck(obj: PyObjectPtr): bool = 
-  result = pyObjectTypeCheck(obj, pyFloatType)
+proc floatCheck(obj: PyObjectPtr): bool = 
+  result = objectTypeCheck(obj, floatType)
 
-proc pyFloatCheckExact(obj: PyObjectPtr): bool = 
-  result = (obj != nil) and (obj.obType == pyFloatType)
+proc floatCheckExact(obj: PyObjectPtr): bool = 
+  result = (obj != nil) and (obj.obType == floatType)
 
-proc pyIntCheck(obj: PyObjectPtr): bool = 
-  result = pyObjectTypeCheck(obj, pyIntType)
+proc intCheck(obj: PyObjectPtr): bool = 
+  result = objectTypeCheck(obj, intType)
 
-proc pyIntCheckExact(obj: PyObjectPtr): bool = 
-  result = (obj != nil) and (obj.obType == pyIntType)
+proc intCheckExact(obj: PyObjectPtr): bool = 
+  result = (obj != nil) and (obj.obType == intType)
 
-proc pyLongCheck(obj: PyObjectPtr): bool = 
-  result = pyObjectTypeCheck(obj, pyLongType)
+proc longCheck(obj: PyObjectPtr): bool = 
+  result = objectTypeCheck(obj, longType)
 
-proc pyLongCheckExact(obj: PyObjectPtr): bool = 
-  result = (obj != nil) and (obj.obType == pyLongType)
+proc longCheckExact(obj: PyObjectPtr): bool = 
+  result = (obj != nil) and (obj.obType == longType)
 
-proc pyTupleCheck(obj: PyObjectPtr): bool = 
-  result = pyObjectTypeCheck(obj, pyTupleType)
+proc tupleCheck(obj: PyObjectPtr): bool = 
+  result = objectTypeCheck(obj, tupleType)
 
-proc pyTupleCheckExact(obj: PyObjectPtr): bool = 
-  result = (obj != nil) and (obj[].obType == pyTupleType)
+proc tupleCheckExact(obj: PyObjectPtr): bool = 
+  result = (obj != nil) and (obj[].obType == tupleType)
 
-proc pyInstanceCheck(obj: PyObjectPtr): bool = 
-  result = (obj != nil) and (obj[].obType == pyInstanceType)
+proc instanceCheck(obj: PyObjectPtr): bool = 
+  result = (obj != nil) and (obj[].obType == instanceType)
 
-proc pyClassCheck(obj: PyObjectPtr): bool = 
-  result = (obj != nil) and (obj[].obType == pyClassType)
+proc classCheck(obj: PyObjectPtr): bool = 
+  result = (obj != nil) and (obj[].obType == classType)
 
-proc pyMethodCheck(obj: PyObjectPtr): bool = 
-  result = (obj != nil) and (obj[].obType == pyMethodType)
+proc methodCheck(obj: PyObjectPtr): bool = 
+  result = (obj != nil) and (obj[].obType == methodType)
 
-proc pyListCheck(obj: PyObjectPtr): bool = 
-  result = pyObjectTypeCheck(obj, pyListType)
+proc listCheck(obj: PyObjectPtr): bool = 
+  result = objectTypeCheck(obj, listType)
 
-proc pyListCheckExact(obj: PyObjectPtr): bool = 
-  result = (obj != nil) and (obj[].obType == pyListType)
+proc listCheckExact(obj: PyObjectPtr): bool = 
+  result = (obj != nil) and (obj[].obType == listType)
 
-proc pyDictCheck(obj: PyObjectPtr): bool = 
-  result = pyObjectTypeCheck(obj, pyDictType)
+proc dictCheck(obj: PyObjectPtr): bool = 
+  result = objectTypeCheck(obj, dictType)
 
-proc pyDictCheckExact(obj: PyObjectPtr): bool = 
-  result = (obj != nil) and (obj[].obType == pyDictType)
+proc dictCheckExact(obj: PyObjectPtr): bool = 
+  result = (obj != nil) and (obj[].obType == dictType)
 
-proc pyModuleCheck(obj: PyObjectPtr): bool = 
-  result = pyObjectTypeCheck(obj, pyModuleType)
+proc moduleCheck(obj: PyObjectPtr): bool = 
+  result = objectTypeCheck(obj, moduleType)
 
-proc pyModuleCheckExact(obj: PyObjectPtr): bool = 
-  result = (obj != nil) and (obj[].obType == pyModuleType)
+proc moduleCheckExact(obj: PyObjectPtr): bool = 
+  result = (obj != nil) and (obj[].obType == moduleType)
 
-proc pySliceCheck(obj: PyObjectPtr): bool = 
-  result = (obj != nil) and (obj[].obType == pySliceType)
+proc sliceCheck(obj: PyObjectPtr): bool = 
+  result = (obj != nil) and (obj[].obType == sliceType)
 
-proc pyFunctionCheck(obj: PyObjectPtr): bool = 
+proc functionCheck(obj: PyObjectPtr): bool = 
   result = (obj != nil) and
-      ((obj.obType == pyCfunctionType) or
-      (obj.obType == pyFunctionType))
+      ((obj.obType == cfunctionType) or
+      (obj.obType == functionType))
 
-proc pyUnicodeCheck(obj: PyObjectPtr): bool = 
-  result = pyObjectTypeCheck(obj, pyUnicodeType)
+proc unicodeCheck(obj: PyObjectPtr): bool = 
+  result = objectTypeCheck(obj, unicodeType)
 
-proc pyUnicodeCheckExact(obj: PyObjectPtr): bool = 
-  result = (obj != nil) and (obj.obType == pyUnicodeType)
+proc unicodeCheckExact(obj: PyObjectPtr): bool = 
+  result = (obj != nil) and (obj.obType == unicodeType)
 
-proc pyTypeISGC(t: PyTypeObjectPtr): bool = 
-  result = pyTypeHasFeature(t, pyTpflagsHaveGc)
+proc typeISGC(t: PyTypeObjectPtr): bool = 
+  result = typeHasFeature(t, tpflagsHaveGc)
 
-proc pyObjectISGC(obj: PyObjectPtr): bool = 
-  result = pyTypeISGC(obj.obType) and
+proc objectISGC(obj: PyObjectPtr): bool = 
+  result = typeISGC(obj.obType) and
       ((obj.obType.tpIsGc == nil) or (obj.obType.tpIsGc(obj) == 1))
 
-proc pyBoolCheck(obj: PyObjectPtr): bool = 
-  result = (obj != nil) and (obj.obType == pyBoolType)
+proc boolCheck(obj: PyObjectPtr): bool = 
+  result = (obj != nil) and (obj.obType == boolType)
 
-proc pyBasestringCheck(obj: PyObjectPtr): bool = 
-  result = pyObjectTypeCheck(obj, pyBasestringType)
+proc basestringCheck(obj: PyObjectPtr): bool = 
+  result = objectTypeCheck(obj, basestringType)
 
-proc pyEnumCheck(obj: PyObjectPtr): bool = 
-  result = (obj != nil) and (obj.obType == pyEnumType)
+proc enumCheck(obj: PyObjectPtr): bool = 
+  result = (obj != nil) and (obj.obType == enumType)
 
-proc pyObjectTypeCheck(obj: PyObjectPtr, t: PyTypeObjectPtr): bool = 
+proc objectTypeCheck(obj: PyObjectPtr, t: PyTypeObjectPtr): bool = 
   result = (obj != nil) and (obj.obType == t)
   if not result and (obj != nil) and (t != nil): 
-    result = pyTypeIsSubtype(obj.obType, t) == 1
+    result = typeIsSubtype(obj.obType, t) == 1
   
-proc pyInitModule(name: cstring, md: PyMethodDefPtr): PyObjectPtr = 
-  result = pyInitModule4(name, md, nil, nil, 1012)
+proc initModule(name: cstring, md: PyMethodDefPtr): PyObjectPtr = 
+  result = initModule4(name, md, nil, nil, 1012)
 
-proc pyTypeHasFeature(AType: PyTypeObjectPtr, AFlag: int): bool = 
+proc typeHasFeature(AType: PyTypeObjectPtr, AFlag: int): bool = 
   #(((t)->tp_flags & (f)) != 0)
   result = (AType.tpFlags and AFlag) != 0
 
 proc init(lib: LibHandle) = 
-  pyDebugFlag = cast[IntPtr](symAddr(lib, "Py_DebugFlag"))
-  pyVerboseFlag = cast[IntPtr](symAddr(lib, "Py_VerboseFlag"))
-  pyInteractiveFlag = cast[IntPtr](symAddr(lib, "Py_InteractiveFlag"))
-  pyOptimizeFlag = cast[IntPtr](symAddr(lib, "Py_OptimizeFlag"))
-  pyNoSiteFlag = cast[IntPtr](symAddr(lib, "Py_NoSiteFlag"))
-  pyUseClassExceptionsFlag = cast[IntPtr](
+  debugFlag = cast[IntPtr](symAddr(lib, "Py_DebugFlag"))
+  verboseFlag = cast[IntPtr](symAddr(lib, "Py_VerboseFlag"))
+  interactiveFlag = cast[IntPtr](symAddr(lib, "Py_InteractiveFlag"))
+  optimizeFlag = cast[IntPtr](symAddr(lib, "Py_OptimizeFlag"))
+  noSiteFlag = cast[IntPtr](symAddr(lib, "Py_NoSiteFlag"))
+  useClassExceptionsFlag = cast[IntPtr](
     symAddr(lib, "Py_UseClassExceptionsFlag")
   )
-  pyFrozenFlag = cast[IntPtr](symAddr(lib, "Py_FrozenFlag"))
-  pyTabcheckFlag = cast[IntPtr](symAddr(lib, "Py_TabcheckFlag"))
-  pyUnicodeFlag = cast[IntPtr](symAddr(lib, "Py_UnicodeFlag"))
-  pyIgnoreEnvironmentFlag = cast[IntPtr](
+  frozenFlag = cast[IntPtr](symAddr(lib, "Py_FrozenFlag"))
+  tabcheckFlag = cast[IntPtr](symAddr(lib, "Py_TabcheckFlag"))
+  unicodeFlag = cast[IntPtr](symAddr(lib, "Py_UnicodeFlag"))
+  ignoreEnvironmentFlag = cast[IntPtr](
     symAddr(lib, "Py_IgnoreEnvironmentFlag")
   )
-  pyDivisionWarningFlag = cast[IntPtr](symAddr(lib, "Py_DivisionWarningFlag"))
-  pyNone = cast[PyObjectPtr](symAddr(lib, "_Py_NoneStruct"))
-  pyEllipsis = cast[PyObjectPtr](symAddr(lib, "_Py_EllipsisObject"))
-  pyFalse = cast[PyIntObjectPtr](symAddr(lib, "_Py_ZeroStruct"))
-  pyTrue = cast[PyIntObjectPtr](symAddr(lib, "_Py_TrueStruct"))
-  pyNotImplemented = cast[PyObjectPtr](symAddr(lib, "_Py_NotImplementedStruct"))
-  pyImportFrozenModules = cast[FrozenPtrPtr](
+  divisionWarningFlag = cast[IntPtr](symAddr(lib, "Py_DivisionWarningFlag"))
+  noneVar = cast[PyObjectPtr](symAddr(lib, "_Py_NoneStruct"))
+  ellipsis = cast[PyObjectPtr](symAddr(lib, "_Py_EllipsisObject"))
+  falseVar = cast[PyIntObjectPtr](symAddr(lib, "_Py_ZeroStruct"))
+  trueVar = cast[PyIntObjectPtr](symAddr(lib, "_Py_TrueStruct"))
+  notImplemented = cast[PyObjectPtr](symAddr(lib, "_Py_NotImplementedStruct"))
+  importFrozenModules = cast[FrozenPtrPtr](
     symAddr(lib, "PyImport_FrozenModules")
   )
-  pyExcAttributeError = cast[PyObjectPtrPtr](
+  excAttributeError = cast[PyObjectPtrPtr](
     symAddr(lib, "PyExc_AttributeError")
   )
-  pyExcEOFError = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_EOFError"))
-  pyExcIOError = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_IOError"))
-  pyExcImportError = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_ImportError"))
-  pyExcIndexError = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_IndexError"))
-  pyExcKeyError = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_KeyError"))
-  pyExcKeyboardInterrupt = cast[PyObjectPtrPtr](
+  excEOFError = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_EOFError"))
+  excIOError = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_IOError"))
+  excImportError = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_ImportError"))
+  excIndexError = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_IndexError"))
+  excKeyError = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_KeyError"))
+  excKeyboardInterrupt = cast[PyObjectPtrPtr](
     symAddr(lib, "PyExc_KeyboardInterrupt")
   )
-  pyExcMemoryError = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_MemoryError"))
-  pyExcNameError = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_NameError"))
-  pyExcOverflowError = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_OverflowError"))
-  pyExcRuntimeError = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_RuntimeError"))
-  pyExcSyntaxError = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_SyntaxError"))
-  pyExcSystemError = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_SystemError"))
-  pyExcSystemExit = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_SystemExit"))
-  pyExcTypeError = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_TypeError"))
-  pyExcValueError = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_ValueError"))
-  pyExcZeroDivisionError = cast[PyObjectPtrPtr](
+  excMemoryError = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_MemoryError"))
+  excNameError = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_NameError"))
+  excOverflowError = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_OverflowError"))
+  excRuntimeError = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_RuntimeError"))
+  excSyntaxError = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_SyntaxError"))
+  excSystemError = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_SystemError"))
+  excSystemExit = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_SystemExit"))
+  excTypeError = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_TypeError"))
+  excValueError = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_ValueError"))
+  excZeroDivisionError = cast[PyObjectPtrPtr](
     symAddr(lib, "PyExc_ZeroDivisionError")
   )
-  pyExcArithmeticError = cast[PyObjectPtrPtr](
+  excArithmeticError = cast[PyObjectPtrPtr](
     symAddr(lib, "PyExc_ArithmeticError")
   )
-  pyExcException = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_Exception"))
-  pyExcFloatingPointError = cast[PyObjectPtrPtr](
+  excException = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_Exception"))
+  excFloatingPointError = cast[PyObjectPtrPtr](
     symAddr(lib, "PyExc_FloatingPointError")
   )
-  pyExcLookupError = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_LookupError"))
-  pyExcStandardError = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_StandardError"))
-  pyExcAssertionError = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_AssertionError"))
-  pyExcEnvironmentError = cast[PyObjectPtrPtr](
+  excLookupError = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_LookupError"))
+  excStandardError = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_StandardError"))
+  excAssertionError = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_AssertionError"))
+  excEnvironmentError = cast[PyObjectPtrPtr](
     symAddr(lib, "PyExc_EnvironmentError")
   )
-  pyExcIndentationError = cast[PyObjectPtrPtr](
+  excIndentationError = cast[PyObjectPtrPtr](
     symAddr(lib, "PyExc_IndentationError")
   )
-  pyExcMemoryErrorInst = cast[PyObjectPtrPtr](
+  excMemoryErrorInst = cast[PyObjectPtrPtr](
     symAddr(lib, "PyExc_MemoryErrorInst")
   )
-  pyExcNotImplementedError = cast[PyObjectPtrPtr](
+  excNotImplementedError = cast[PyObjectPtrPtr](
     symAddr(lib, "PyExc_NotImplementedError")
   )
-  pyExcOSError = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_OSError"))
-  pyExcTabError = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_TabError"))
-  pyExcUnboundLocalError = cast[PyObjectPtrPtr](
+  excOSError = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_OSError"))
+  excTabError = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_TabError"))
+  excUnboundLocalError = cast[PyObjectPtrPtr](
     symAddr(lib, "PyExc_UnboundLocalError")
   )
-  pyExcUnicodeError = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_UnicodeError"))
-  pyExcWarning = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_Warning"))
-  pyExcDeprecationWarning = cast[PyObjectPtrPtr](
+  excUnicodeError = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_UnicodeError"))
+  excWarning = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_Warning"))
+  excDeprecationWarning = cast[PyObjectPtrPtr](
     symAddr(lib, "PyExc_DeprecationWarning")
   )
-  pyExcRuntimeWarning = cast[PyObjectPtrPtr](
+  excRuntimeWarning = cast[PyObjectPtrPtr](
     symAddr(lib, "PyExc_RuntimeWarning")
   )
-  pyExcSyntaxWarning = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_SyntaxWarning"))
-  pyExcUserWarning = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_UserWarning"))
-  pyExcOverflowWarning = cast[PyObjectPtrPtr](
+  excSyntaxWarning = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_SyntaxWarning"))
+  excUserWarning = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_UserWarning"))
+  excOverflowWarning = cast[PyObjectPtrPtr](
     symAddr(lib, "PyExc_OverflowWarning")
   )
-  pyExcReferenceError = cast[PyObjectPtrPtr](
+  excReferenceError = cast[PyObjectPtrPtr](
     symAddr(lib, "PyExc_ReferenceError")
   )
-  pyExcStopIteration = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_StopIteration"))
-  pyExcFutureWarning = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_FutureWarning"))
-  pyExcPendingDeprecationWarning = cast[PyObjectPtrPtr](
+  excStopIteration = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_StopIteration"))
+  excFutureWarning = cast[PyObjectPtrPtr](symAddr(lib, "PyExc_FutureWarning"))
+  excPendingDeprecationWarning = cast[PyObjectPtrPtr](
     symAddr(lib, "PyExc_PendingDeprecationWarning")
   )
-  pyExcUnicodeDecodeError = cast[PyObjectPtrPtr](
+  excUnicodeDecodeError = cast[PyObjectPtrPtr](
     symAddr(lib, "PyExc_UnicodeDecodeError")
   )
-  pyExcUnicodeEncodeError = cast[PyObjectPtrPtr](
+  excUnicodeEncodeError = cast[PyObjectPtrPtr](
     symAddr(lib, "PyExc_UnicodeEncodeError")
   )
-  pyExcUnicodeTranslateError = cast[PyObjectPtrPtr](
+  excUnicodeTranslateError = cast[PyObjectPtrPtr](
     symAddr(lib, "PyExc_UnicodeTranslateError")
   )
-  pyTypeType = cast[PyTypeObjectPtr](symAddr(lib, "PyType_Type"))
-  pyCfunctionType = cast[PyTypeObjectPtr](symAddr(lib, "PyCFunction_Type"))
-  pyCobjectType = cast[PyTypeObjectPtr](symAddr(lib, "PyCObject_Type"))
-  pyClassType = cast[PyTypeObjectPtr](symAddr(lib, "PyClass_Type"))
-  pyCodeType = cast[PyTypeObjectPtr](symAddr(lib, "PyCode_Type"))
-  pyComplexType = cast[PyTypeObjectPtr](symAddr(lib, "PyComplex_Type"))
-  pyDictType = cast[PyTypeObjectPtr](symAddr(lib, "PyDict_Type"))
-  pyFileType = cast[PyTypeObjectPtr](symAddr(lib, "PyFile_Type"))
-  pyFloatType = cast[PyTypeObjectPtr](symAddr(lib, "PyFloat_Type"))
-  pyFrameType = cast[PyTypeObjectPtr](symAddr(lib, "PyFrame_Type"))
-  pyFunctionType = cast[PyTypeObjectPtr](symAddr(lib, "PyFunction_Type"))
-  pyInstanceType = cast[PyTypeObjectPtr](symAddr(lib, "PyInstance_Type"))
-  pyIntType = cast[PyTypeObjectPtr](symAddr(lib, "PyInt_Type"))
-  pyListType = cast[PyTypeObjectPtr](symAddr(lib, "PyList_Type"))
-  pyLongType = cast[PyTypeObjectPtr](symAddr(lib, "PyLong_Type"))
-  pyMethodType = cast[PyTypeObjectPtr](symAddr(lib, "PyMethod_Type"))
-  pyModuleType = cast[PyTypeObjectPtr](symAddr(lib, "PyModule_Type"))
-  pyObjectType = cast[PyTypeObjectPtr](symAddr(lib, "PyObject_Type"))
-  pyRangeType = cast[PyTypeObjectPtr](symAddr(lib, "PyRange_Type"))
-  pySliceType = cast[PyTypeObjectPtr](symAddr(lib, "PySlice_Type"))
-  pyStringType = cast[PyTypeObjectPtr](symAddr(lib, "PyString_Type"))
-  pyTupleType = cast[PyTypeObjectPtr](symAddr(lib, "PyTuple_Type"))
-  pyUnicodeType = cast[PyTypeObjectPtr](symAddr(lib, "PyUnicode_Type"))
-  pyBaseobjectType = cast[PyTypeObjectPtr](symAddr(lib, "PyBaseObject_Type"))
-  pyBufferType = cast[PyTypeObjectPtr](symAddr(lib, "PyBuffer_Type"))
-  pyCalliterType = cast[PyTypeObjectPtr](symAddr(lib, "PyCallIter_Type"))
-  pyCellType = cast[PyTypeObjectPtr](symAddr(lib, "PyCell_Type"))
-  pyClassmethodType = cast[PyTypeObjectPtr](symAddr(lib, "PyClassMethod_Type"))
-  pyPropertyType = cast[PyTypeObjectPtr](symAddr(lib, "PyProperty_Type"))
-  pySeqiterType = cast[PyTypeObjectPtr](symAddr(lib, "PySeqIter_Type"))
-  pyStaticmethodType = cast[PyTypeObjectPtr](
+  typeType = cast[PyTypeObjectPtr](symAddr(lib, "PyType_Type"))
+  cfunctionType = cast[PyTypeObjectPtr](symAddr(lib, "PyCFunction_Type"))
+  cobjectType = cast[PyTypeObjectPtr](symAddr(lib, "PyCObject_Type"))
+  classType = cast[PyTypeObjectPtr](symAddr(lib, "PyClass_Type"))
+  codeType = cast[PyTypeObjectPtr](symAddr(lib, "PyCode_Type"))
+  complexType = cast[PyTypeObjectPtr](symAddr(lib, "PyComplex_Type"))
+  dictType = cast[PyTypeObjectPtr](symAddr(lib, "PyDict_Type"))
+  fileType = cast[PyTypeObjectPtr](symAddr(lib, "PyFile_Type"))
+  floatType = cast[PyTypeObjectPtr](symAddr(lib, "PyFloat_Type"))
+  frameType = cast[PyTypeObjectPtr](symAddr(lib, "PyFrame_Type"))
+  functionType = cast[PyTypeObjectPtr](symAddr(lib, "PyFunction_Type"))
+  instanceType = cast[PyTypeObjectPtr](symAddr(lib, "PyInstance_Type"))
+  intType = cast[PyTypeObjectPtr](symAddr(lib, "PyInt_Type"))
+  listType = cast[PyTypeObjectPtr](symAddr(lib, "PyList_Type"))
+  longType = cast[PyTypeObjectPtr](symAddr(lib, "PyLong_Type"))
+  methodType = cast[PyTypeObjectPtr](symAddr(lib, "PyMethod_Type"))
+  moduleType = cast[PyTypeObjectPtr](symAddr(lib, "PyModule_Type"))
+  objectType = cast[PyTypeObjectPtr](symAddr(lib, "PyObject_Type"))
+  rangeType = cast[PyTypeObjectPtr](symAddr(lib, "PyRange_Type"))
+  sliceType = cast[PyTypeObjectPtr](symAddr(lib, "PySlice_Type"))
+  stringType = cast[PyTypeObjectPtr](symAddr(lib, "PyString_Type"))
+  tupleType = cast[PyTypeObjectPtr](symAddr(lib, "PyTuple_Type"))
+  unicodeType = cast[PyTypeObjectPtr](symAddr(lib, "PyUnicode_Type"))
+  baseobjectType = cast[PyTypeObjectPtr](symAddr(lib, "PyBaseObject_Type"))
+  bufferType = cast[PyTypeObjectPtr](symAddr(lib, "PyBuffer_Type"))
+  calliterType = cast[PyTypeObjectPtr](symAddr(lib, "PyCallIter_Type"))
+  cellType = cast[PyTypeObjectPtr](symAddr(lib, "PyCell_Type"))
+  classmethodType = cast[PyTypeObjectPtr](symAddr(lib, "PyClassMethod_Type"))
+  propertyType = cast[PyTypeObjectPtr](symAddr(lib, "PyProperty_Type"))
+  seqiterType = cast[PyTypeObjectPtr](symAddr(lib, "PySeqIter_Type"))
+  staticmethodType = cast[PyTypeObjectPtr](
     symAddr(lib, "PyStaticMethod_Type")
   )
-  pySuperType = cast[PyTypeObjectPtr](symAddr(lib, "PySuper_Type"))
-  pySymtableentryType = cast[PyTypeObjectPtr](
+  superType = cast[PyTypeObjectPtr](symAddr(lib, "PySuper_Type"))
+  symtableentryType = cast[PyTypeObjectPtr](
     symAddr(lib, "PySymtableEntry_Type")
   )
-  pyTracebackType = cast[PyTypeObjectPtr](symAddr(lib, "PyTraceBack_Type"))
-  pyWrapperdescrType = cast[PyTypeObjectPtr](
+  tracebackType = cast[PyTypeObjectPtr](symAddr(lib, "PyTraceBack_Type"))
+  wrapperdescrType = cast[PyTypeObjectPtr](
     symAddr(lib, "PyWrapperDescr_Type")
   )
-  pyBasestringType = cast[PyTypeObjectPtr](symAddr(lib, "PyBaseString_Type"))
-  pyBoolType = cast[PyTypeObjectPtr](symAddr(lib, "PyBool_Type"))
-  pyEnumType = cast[PyTypeObjectPtr](symAddr(lib, "PyEnum_Type"))
+  basestringType = cast[PyTypeObjectPtr](symAddr(lib, "PyBaseString_Type"))
+  boolType = cast[PyTypeObjectPtr](symAddr(lib, "PyBool_Type"))
+  enumType = cast[PyTypeObjectPtr](symAddr(lib, "PyEnum_Type"))
 
 
 # Unfortunately we have to duplicate the loading mechanism here, because Nimrod
