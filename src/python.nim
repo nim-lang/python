@@ -2504,7 +2504,7 @@ else:
 for libName in items(LibNames): 
   lib = loadLib(libName, global_symbols=true)
   if lib != nil:
-    echo "Loaded dynamic library: '$1'" % libName
+    # echo "Loaded dynamic library: '$1'" % libName
     break
 
 if lib == nil:
